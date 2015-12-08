@@ -1,5 +1,5 @@
 # R layer of ff
-# (c) 2007 Jens Oehlschägel
+# (c) 2007 Jens Oehlsch?gel
 # Licence: GPL2
 # Provided 'as is', use at your own risk
 # Created: 2007-09-03
@@ -33,7 +33,7 @@ if(getRversion() < "2.11.0")
 #! \details{
 #!   ff extensions are needed for certain bitcompressed vmodes and ff symm extensions for symmetric matrices.
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{vmode}}%, \code{\link{symm}}
 #! }
 #! \examples{
@@ -96,7 +96,7 @@ caching_schemes <- c("mmnoflush","mmeachflush")
 #! \value{
 #!   logical scalar
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{inherits}}, \code{\link{as.ff}}, \code{\link{is.ffdf}} }
 #! \examples{
 #!   is.ff(integer())
@@ -127,7 +127,7 @@ is.ff <- function(x)
 #! \value{
 #!   \command{geterror.ff} returns an error integer code (no error = 0) and \command{geterrstr.ff} returns the error message (no error = "no error").
 #! }
-#! \author{ Jens Oehlschlägel, Daniel Adler (C++ back-end) }
+#! \author{ Jens Oehlschl?gel, Daniel Adler (C++ back-end) }
 #! \seealso{  \code{\link{ff}} }
 #! \examples{
 #!   x <- ff(1:12)
@@ -197,7 +197,7 @@ geterrstr.ff <- function(x)
 #!   \code{filename<-} exhibits R's standard behaviour of considering "filename" and "./filename" both to be located in \code{\link{getwd}}.
 #!   By constrast \code{pattern<-} will create "filename" without path in \code{getOption("fftempdir")} and only "./filename" in \code{\link{getwd}}.
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{fftempfile}}, \code{\link{finalizer}}, \code{\link{ff}}, \code{\link{as.ff}}, \code{\link{as.ram}}, \code{\link{update.ff}},  \code{\link{file.move}}}
 #! \examples{
 #!   \dontrun{
@@ -341,7 +341,7 @@ filename.ffdf <- function(x, ...)
 #! \value{
 #!   logical scalar
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{open.ff}}, \code{\link[=physical.ff]{physical}} }
 #! \examples{
 #!   x <- ff(1:12)
@@ -390,7 +390,7 @@ is.readonly.ff <- function(x
 #! \value{
 #!   TRUE or FALSE (or NA if not all components of an ffdf object are opened or closed)
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{is.readonly}}, \code{\link{open.ff}}, \code{\link{close.ff}} }
 #! \examples{
 #!   x <- ff(1:12)
@@ -433,7 +433,7 @@ is.open.ff <- function(x
 #! \value{
 #!   integer number of bytes
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{getpagesize}} }
 #! \examples{
 #!   x <- ff(1:12)
@@ -469,7 +469,7 @@ pagesize.ff <- function(x, ...){
 #! \value{
 #!   integer scalar
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{length.ff}}, \code{\link{maxindex}} }
 #! \examples{
 #!   x <- ff(1:12)
@@ -525,7 +525,7 @@ maxlength.default <- function(x
 #! \value{
 #!   TRUE or FALSE
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{symmetric}}, \code{\link{ff}} %, \code{\link{symm}}
 #!         , \code{\link{dist}}, \code{\link{isSymmetric}} }
 #! \examples{
@@ -578,7 +578,7 @@ symmetric.dist <- function(x
 #! \value{
 #!   NULL or the scalar representing the fixed diagonal
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{fixdiag}}, \code{\link{ff}} %, \code{\link{symm}}
 #!         , \code{\link{dist}} }
 #! \examples{
@@ -633,7 +633,7 @@ fixdiag.dist <- function(x
 #! \note{
 #!   \command{ff} will set \code{is.sorted(x) <- FALSE} if \code{\link{clone}} or \code{\link{length<-.ff}} have increased length.
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{is.ordered.ff}} for testing factor levels, \code{\link[base]{is.unsorted}} for testing the data, \code{\link[bit]{intisasc}} for a quick version thereof, \code{\link{na.count}} for yet another \code{\link[=physical.ff]{physical}} attribute }
 #! \examples{
 #!   x <- 1:12
@@ -709,7 +709,7 @@ is.sorted.default <- function(x, ...)
 #! \value{
 #!   NA (if set to NULL or NA) or an integer value otherwise
 #! }
-#! \author{ Jens Oehlschlägel, Daniel Adler (C++ back-end) }
+#! \author{ Jens Oehlschl?gel, Daniel Adler (C++ back-end) }
 #! \seealso{ \code{\link{getset.ff}}, \code{\link{readwrite.ff}} and \code{\link{swap}} for methods that support maintenance of 'na.count', \code{\link[base]{NA}}, \code{\link{is.sorted}} for yet another \code{\link[=physical.ff]{physical}} attribute }
 #! \examples{
 #!   message("--- ff examples ---")
@@ -825,7 +825,7 @@ na.count.default <- function(x
 #! \value{
 #!   \command{physical} and \command{virtual} returns a list with named elements
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{
 #!  \code{\link[bit]{physical}}, \code{\link{physical.ffdf}}, \code{\link{ff}}, \code{\link{as.ram}}; \cr
 #!  \code{\link{is.sorted}} and \code{\link{na.count}} for applications of physical attributes; \cr
@@ -910,7 +910,7 @@ virtual.ff <- function(x){
 #!   \command{ramclass} returns a character vector with classnames and \command{ramattribs} returns a list with names elemens just like \code{\link[base]{attributes}}.
 #!   The vectors \code{ramclass_excludes} and \code{ramattribs_excludes} name those attributes, which are not exported from ff to ram objects when using \code{\link{as.ram}}.
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{ff}}, \code{\link[=physical.ff]{virtual}}, \code{\link{as.ram}}, \code{\link{levels.ff}}, \code{\link{attributes}}, \code{\link[base]{DateTimeClasses}} }
 #! \examples{
 #!   x <- ff(as.POSIXct(as.POSIXlt(Sys.time(), "GMT")), length=12)
@@ -993,7 +993,7 @@ ramattribs.default <- function(x
 #! \value{
 #!   Integer scalar
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link[base]{length}}, \code{\link{maxlength}}, \code{\link{file.resize}}, \code{\link[ff:dim.ff]{dim}}, \code{\link[=physical.ff]{virtual}} }
 #! \examples{
 #!   x <- ff(1:12)
@@ -1113,7 +1113,7 @@ length.ff <- function(x)
 #! \value{
 #!   \command{levels} returns a character vector of levels (possibly including \code{as.cha racter(NA)}).
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \note{ When levels as assigned to an ff object that formerly had not levels, we assign automatically \code{\link{ramclass}} == "factor". If you want to change to an ordered factor, use \code{\link[=virtual.ff]{virtual}$ramclass <- c("ordered", "factor")} }
 #! \seealso{ \code{\link{ramclass}}, \code{\link{factor}}, \code{\link[=physical.ff]{virtual}} }
 #! \examples{
@@ -1226,7 +1226,7 @@ is.ordered.ff <- function(x){
 #! \value{
 #!   \command{names} returns a character vector (or NULL)
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link[base]{names}}, \code{\link{dimnames.ff_array}}, \code{\link{vw}}, \code{\link[=physical.ff]{virtual}} }
 #! \examples{
 #!   x <- ff(1:26, names=letters)
@@ -1312,7 +1312,7 @@ names.ff <- function(x){
 #! \value{
 #!   \command{dimnames} returns a list, see \code{\link[base]{dimnames}}
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link[base]{dimnames}}, \code{\link{dim.ff}} , \code{\link{names.ff}} , \code{\link{vw}}, \code{\link[=physical.ff]{virtual}} }
 #! \examples{
 #!   x <- ff(1:12, dim=c(3,4), dimnames=list(letters[1:3], LETTERS[1:4]))
@@ -1414,7 +1414,7 @@ dimnames.ff_array <- function(x){
 #! \value{
 #!   \command{names} returns a character vector (or NULL)
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link[base]{dim}}, \code{\link{dimnames.ff_array}}, \code{\link{dimorderStandard}}, \code{\link{vw}}, \code{\link[=physical.ff]{virtual}} }
 #! \examples{
 #!   x <- ff(1:12, dim=c(3,4), dimorder=c(2:1))
@@ -1598,7 +1598,7 @@ dimorder.default <- function(x
 #! \value{
 #!   NULL or a vw specification, see details
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{length.ff}}, \code{\link{dim.ff}}, \code{\link[=physical.ff]{virtual}} }
 #! \examples{
 #!   x <- ff(1:26, names=letters)
@@ -1739,7 +1739,7 @@ vw.default <- function(x
 #! \value{
 #!   \code{invisible()}
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{ff}}, \code{\link{print}}, \code{\link{str}} }
 #! \examples{
 #!   x <- ff(1:10000)
@@ -2067,12 +2067,12 @@ str.ff <- function(object, nest.lev=0, ...){
 #!                      \tab Index sequence packing, Documentation \cr
 #!   Walter Zucchini    \tab \email{wzucchi@uni-goettingen.de} \cr
 #!                      \tab Array Indexing, Sampling, Documentation \cr
-#!   Christian Gläser   \tab \email{christian\_glaeser@gmx.de} \cr
+#!   Christian Gl?ser   \tab \email{christian\_glaeser@gmx.de} \cr
 #!                      \tab Wrapper for biglm package \cr
 #!   }
 #!  Package Version 2.0
 #!  \tabular{ll}{
-#!   Jens Oehlschlägel  \tab \email{Jens.Oehlschlaegel@truecluster.com} \cr
+#!   Jens Oehlschl?gel  \tab \email{Jens.Oehlschlaegel@truecluster.com} \cr
 #!                      \tab R package redesign; Hybrid Index Preprocessing; transparent object creation and finalization; vmode design; virtualization and hybrid copying; arrays with dimorder and bydim; symmetric matrices; factors and POSIXct; virtual windows and transpose; new generics update, clone, swap, add, as.ff and as.ram; ffapply and collapsing functions. R-coding, C-coding and Rd-documentation. \cr
 #!   Daniel Adler       \tab \email{dadler@uni-goettingen.de} \cr
 #!                      \tab C++ generic file vectors, vmode implementation and low-level bit-packing/unpacking, arithmetic operations and NA handling, Memory-Mapping and backend caching. C++ coding and platform ports. R-code extensions for opening existing flat files readonly and shared. \cr
@@ -2196,9 +2196,12 @@ ff <- function(
     stop("symmetric must be FALSE or TRUE")
 
   if (is.null(vmode)){
-    if (is.null(initdata))
-      stop("need vmode or initdata")
-    vmode <- vmode(initdata)
+    if (is.null(initdata)) {
+      # stop("need vmode or initdata")
+      vmode <- "logical"
+      length <- 0
+    } else 
+      vmode <- vmode(initdata)
   } else{
     if (is.na(match(vmode, c("boolean", "logical", "quad", "nibble", "byte", "ubyte", "short", "ushort", "integer", "single", "double", "raw")))){
      stop("vmode '", vmode,"' not implemented")
@@ -2329,7 +2332,8 @@ ff <- function(
         length <- maxlength
       }else{
         if (is.null(initdata))
-          stop("need length or initdata")
+          length <- 0
+          #stop("need length or initdata")
         else{
           length <- length(initdata)
         }
@@ -2385,7 +2389,7 @@ ff <- function(
     }
   }
   if (length<0 || length>.Machine$integer.max)
-    stop("length must be between 1 and .Machine$integer.max")
+    stop("length must be between 0 and .Machine$integer.max")
 
   if (is.null(pagesize))
     pagesize <- getOption("ffpagesize")
@@ -2569,7 +2573,7 @@ ff <- function(
 #! \value{
 #!   An ff object like the input 'object' updated with the content of the 'from' object.
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{ff}}, \code{\link{clone}}, \code{\link{ffvecapply}}, \code{\link{vectorCompatible}}, \code{\link{filename}} }
 #! \examples{
 #!   x <- ff(1:100)
@@ -2858,7 +2862,7 @@ update.ff <- function(
 #! \value{
 #!   an ff or ram object
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{ff}}, \code{\link{update}}, \code{\link{as.ram}}, \code{\link{as.ff}} }
 #! \examples{
 #!   x <- ff(letters, levels=letters)
@@ -3112,7 +3116,7 @@ clone.list <- function(x
 #!   You can not assign NULL to an active finalizer using \code{finalizer<-} because this would not stop R's finalization mechanism and would carry the risk of assiging MULTIPLE finalization tasks.
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #! \seealso{
 #!   \code{\link{ff}}, \code{\link{finalize}}, \code{\link[base]{reg.finalizer}}
@@ -3185,7 +3189,7 @@ finalizer.ff <- function(x, ...){
 #!   returns whatever the called finalizer returns, for ffdf a list with the finalization returns of each physical component is returned.
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #! \seealso{
 #!   \code{\link{finalizer}}
@@ -3279,7 +3283,7 @@ x       # ff object
 #! \value{
 #!   TRUE if object could be opened, FALSE if it was opened already (or NA if not all components of an ffdf returned FALSE or TRUE on opening)
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{ff}}, \code{\link{close.ff}}, \code{\link{delete}}, \code{\link{deleteIfOpen}}, \code{\link{getalignedpagesize}} }
 #! \examples{
 #!   x <- ff(1:12)
@@ -3368,7 +3372,7 @@ open.ff <- function(con
 #! \value{
 #!   TRUE if the file could be closed, FALSE if it was closed already (or NA if not all components of an ffdf returned FALSE or TRUE on closing)
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{ff}}, \code{\link{open.ff}}, \code{\link{delete}}, \code{\link{deleteIfOpen}} }
 #! \examples{
 #!   x <- ff(1:12)
@@ -3437,7 +3441,7 @@ close.ff <- function(con
 #!   \command{delete} returns TRUE if the/all ff files could be removed and FALSE otherwise. \cr
 #!   \command{deleteIfOpen} returns TRUE if the/all ff files could be removed, FALSE if not and NA if the ff object was open.
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \note{
 #!   Deletion of ff files can be triggerd automatically via three routes:
 #!   \enumerate{
@@ -3567,7 +3571,7 @@ if (FALSE){
 #!   \command{get.ff} returns a vector, \command{set.ff} returns the 'changed' ff object (like all assignment functions do) and \command{getset.ff} returns the value at the subscript positions.
 #!   More precisely \code{getset.ff(x, i, value, add=FALSE)} returns the old values at the subscript positions \code{i} while \code{getset.ff(x, i, value, add=TRUE)} returns the incremented values at the subscript positions.
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \note{ \command{get.ff}, \command{set.ff} and \command{getset.ff} are low level functions that do not support \code{ramclass} and \code{ramattribs} and thus will not give the expected result with \code{factor} and \code{POSIXct} }
 #! \seealso{ \code{\link{readwrite.ff}} for low-level access to contiguous chunks and \code{\link{[.ff}} for high-level access }
 #! \examples{
@@ -3682,7 +3686,7 @@ set.ff   <- function(x, i, value, add=FALSE)
 #!   \command{read.ff} returns a vector of values, \command{write.ff} returns the 'changed' ff object (like all assignment functions do) and \command{readwrite.ff} returns the values at the target position.
 #!   More precisely \code{readwrite.ff(x, i, value, add=FALSE)} returns the old values at the position \code{i} while \code{readwrite.ff(x, i, value, add=TRUE)} returns the incremented values of \code{x}.
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \note{ \command{read.ff}, \command{write.ff} and \command{readwrite.ff} are low level functions that do not support \code{ramclass} and \code{ramattribs} and thus will not give the expected result with \code{factor} and \code{POSIXct} }
 #! \seealso{ \code{\link{getset.ff}} for low-level scalar access and \code{\link{[.ff}} for high-level access }
 #! \examples{
@@ -3806,7 +3810,7 @@ write.ff <- function(x, i, value, add=FALSE)
 #!   Values at the target positions.
 #!   More precisely \code{swap(x, value, i, add=FALSE)} returns the old values at the position \code{i} while \code{swap(x, value, i, add=TRUE)} returns the incremented values of \code{x}.
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \note{
 #!   Note that \code{swap.default} changes the object in its parent frame and thus violates R's usual functional programming logic.
 #!   When using \code{add=TRUE}, duplicated index positions should be avoided, because ff and ram objects behave differently:
@@ -3927,7 +3931,7 @@ write.ff <- function(x, i, value, add=FALSE)
 #!   \cr
 #!   The write operators \command{[<-} and \command{[[<-} return the 'modified' ff object (like all assignment operators do).
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link{ff}}, \code{\link{swap}}, \code{\link{add}}, \code{\link{readwrite.ff}}, \code{\link{LimWarn}} }
 #! \examples{
 #!    message("look at different dimorders")
@@ -4697,7 +4701,7 @@ swap.ff_array <- function(
 #! \value{
 #!   invisible()
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \note{
 #!   Note that \code{add.default} changes the object in its parent frame and thus violates R's usual functional programming logic.
 #!   Duplicated index positions should be avoided, because ff and ram objects behave differently:

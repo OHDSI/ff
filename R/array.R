@@ -1,5 +1,5 @@
 # Array utilities for ff
-# (c) 2007 Jens Oehlschägel
+# (c) 2007 Jens Oehlsch?gel
 # Licence: GPL2
 # Provided 'as is', use at your own risk
 # Created: 2007-09-03
@@ -61,7 +61,7 @@ legalizeFactor <- function(x){
 #! \value{
 #!   a suitable \code{\link{array}}
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{array2vector}}, \code{\link{vectorIndex2arrayIndex}} }
 #! \examples{
 #!   vector2array(1:12, dim=c(3, 4))               # matrix(1:12, 3, 4)
@@ -100,7 +100,7 @@ vector2array <- function(x, dim, dimorder=NULL){
 #! \value{
 #!   a vector
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{vector2array}}, \code{\link{arrayIndex2vectorIndex}} }
 #! \examples{
 #!   array2vector(matrix(1:12, 3, 4))
@@ -137,7 +137,7 @@ if (FALSE){
   stopifnot(identical( vector2array(1:12, 3:4), matrix(1:12, 3, 4) ))
   stopifnot(identical( vector2array(1:12, 3:4, 2:1), matrix(1:12, 3, 4, byrow=TRUE) ))
   stopifnot(identical( vector2array(1:24, 4:2, c(2,1,3)), structure(c(1L, 4L, 7L, 10L, 2L, 5L, 8L, 11L, 3L, 6L, 9L, 12L, 13L, 16L, 19L, 22L, 14L, 17L, 20L, 23L, 15L, 18L, 21L, 24L), .Dim = c(4L, 3L, 2L)) ))
-
+  
   stopifnot(identical( array2vector(vector2array(1:12, 3:4)), 1:12 ))
   stopifnot(identical( array2vector(vector2array(1:12, 3:4, 2:1), dimorder=2:1), 1:12 ))
   stopifnot(identical( array2vector(vector2array(1:24, 4:2, c(2,1,3)), dimorder=c(2,1,3)), 1:24 ))
@@ -166,7 +166,7 @@ if (FALSE){
 #! \value{
 #!   a vector of indices in \code{1:prod(dim)} (or  \code{1:prod(colSums(vw))})
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{array2vector}}, \code{\link{vectorIndex2arrayIndex}} }
 #! \examples{
 #!   x <- matrix(1:12, 3, 4)
@@ -229,7 +229,7 @@ arrayIndex2vectorIndex <- function(x, dim = NULL, dimorder=NULL, vw=NULL){
 #! \value{
 #!   an n by m matrix with n m-dimensional array indices
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{vector2array}}, \code{\link{arrayIndex2vectorIndex}} , \code{\link{symmIndex2vectorIndex}} }
 #! \examples{
 #!   matrix(1:12, 3, 4)
@@ -278,21 +278,21 @@ vectorIndex2arrayIndex <- function(x, dim=NULL, dimorder=NULL, vw=NULL){
       dimorder <- 1:n
     cdim <- as.integer(cumprod(colSums(vw)[dimorder]))
   }
-
+  
   N <- cdim[n]
   cdim <- c(1L,cdim[-n])
-
+  
   if(!is.vector(x))
     x <- as.vector(x)
-
+  
   if (n==1)
     return(cbind(x-vw[1,]))
-
+  
   if (!is.integer(x))
     x <- as.integer(x - 1L)
   else
     x <- x - 1L
-
+  
   ret <- NULL
   for (i in n:2){
     ret <- rbind(x%/%cdim[i], ret)
@@ -325,7 +325,7 @@ vectorIndex2arrayIndex <- function(x, dim=NULL, dimorder=NULL, vw=NULL){
 #! \value{
 #!   a vector of indices in \code{1:prod(dim(x))}
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{arrayIndex2vectorIndex}} }
 #! \examples{
 #!   symmIndex2vectorIndex(rbind(
@@ -357,13 +357,13 @@ symmIndex2vectorIndex <- function(x, dim, fixdiag=NULL # setting to anything but
   n <- dim[[1]]
   if (is.null(fixdiag)){
     i <- as.integer(ifelse(r>c
-    , r + c*n - c*(c+one)/two + one
-    , c + r*n - r*(r+one)/two + one
+                           , r + c*n - c*(c+one)/two + one
+                           , c + r*n - r*(r+one)/two + one
     ))
   }else{
     i <- as.integer(ifelse(r>c
-    , r + c*(n-one) - c*(c+one)/two
-    , c + r*(n-one) - r*(r+one)/two
+                           , r + c*(n-one) - c*(c+one)/two
+                           , c + r*(n-one) - r*(r+one)/two
     ))
     i[r==c] <- NA
   }
@@ -387,7 +387,7 @@ symmIndex2vectorIndex <- function(x, dim, fixdiag=NULL # setting to anything but
 #! \value{
 #!   a list with character vectors suitable to be assigned as dimnames to x
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{dimnames}} }
 #! \examples{
 #!   dummy.dimnames(matrix(1:12, 3, 4))
@@ -422,7 +422,7 @@ dummy.dimnames <- function(x){
 #! \value{
 #!   a k by 2 matrix of matrix indices where \code{ k = length(r) * length(c) }
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{row}}, \code{\link{col}} , \code{\link{expand.grid}} }
 #! \examples{
 #!   matcomb(1:3, 1:4)
@@ -467,7 +467,7 @@ matcomb <- function(r,c){
 #!   \item{ rsep }{ logical scalar indicating whether row seperator is included }
 #!   \item{ csep }{ logical scalar indicating whether column seperator is included }
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{vecprint}} }
 #! \examples{
 #!   matprint(matrix(1:(300*400), 300, 400))
@@ -477,19 +477,19 @@ matcomb <- function(r,c){
 
 
 matprint <- function(x, maxdim=c(16,16), digits=getOption("digits")){
-
+  
   d <- dim(x)
   if (any(d==0)){
     return("[empty matrix]")
   }
-
+  
   maxdim <- pmin(d,maxdim)
   d2 <- maxdim %/% 2
   d1 <- maxdim - d2
   d2 <- ifelse(d1<maxdim, d - d2 + 1, 0)
   rsep <- maxdim[1] < d[1]
   csep <- maxdim[2] < d[2]
-
+  
   i <- matrix(list(1:d1[1], 1:d1[2], if (d2[1]) d2[1]:d[1], if (d2[2]) d2[2]:d[2]), 2, 2)
   i1 <- c(i[[1,1]],i[[1,2]])
   i2 <- c(i[[2,1]],i[[2,2]])
@@ -501,7 +501,7 @@ matprint <- function(x, maxdim=c(16,16), digits=getOption("digits")){
   }else{
     m <- legalizeFactor(m)
   }
-
+  
   # xx circumvent a bug in format of raw
   if (is.raw(m)){
     a <- attributes(m)
@@ -558,7 +558,7 @@ print.matprint <- function(x, quote=FALSE, right=TRUE, ...){
 #!   \item{ example }{ the extracted example vector as.character including seperator }
 #!   \item{ sep }{ the row seperator ":" }
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{matprint}} }
 #! \examples{
 #!   vecprint(10000:1)
@@ -567,26 +567,30 @@ print.matprint <- function(x, quote=FALSE, right=TRUE, ...){
 
 
 vecprint <- function(x, maxlength=16, digits=getOption("digits")){
-
+  
   d <- length(x)
-  maxlength <- min(maxlength, d)
-  d2 <- maxlength%/%2
-  d1 <- maxlength - d2
-  d2 <- ifelse(d1<maxlength, d - d2 + 1, 0L)
-
-  sep <- maxlength[1]<d[1]
-
-  i <- list(1:d1, if (d2) d2:d)
-  m <- format(legalizeFactor(x[ unlist(i) ]), digits=digits)
-  if (is.null(names(m)))
-    names(m) <- paste("[", unlist(i),"]", sep="")
-
-  if (sep){
-    m <- c(m[1:d1], if (d2) c(":", m[(d1+1):maxlength]))
+  if (d == 0){
+    return() 
+  } else {
+    maxlength <- min(maxlength, d)
+    d2 <- maxlength%/%2
+    d1 <- maxlength - d2
+    d2 <- ifelse(d1<maxlength, d - d2 + 1, 0L)
+    
+    sep <- maxlength[1]<d[1]
+    
+    i <- list(1:d1, if (d2) d2:d)
+    m <- format(legalizeFactor(x[ unlist(i) ]), digits=digits)
+    if (is.null(names(m)))
+      names(m) <- paste("[", unlist(i),"]", sep="")
+    
+    if (sep){
+      m <- c(m[1:d1], if (d2) c(":", m[(d1+1):maxlength]))
+    }
+    ret <- list(subscript=i, example=m, sep=sep)
+    class(ret) <- "vecprint"
+    ret
   }
-  ret <- list(subscript=i, example=m, sep=sep)
-  class(ret) <- "vecprint"
-  ret
 }
 print.vecprint <- function(x, quote=FALSE, ...){
   print(x$example, quote=quote, ...)

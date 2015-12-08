@@ -13,10 +13,6 @@
 /** enable os buffering in file mapping */
 #define FF_USE_BUFFERING
 
-#define FSIZE_RESERVED_FOR_OPENING 0
-// #define FSIZE_RESERVED_FOR_OPENING 2147483647
-#define SIZE_OR_ZERO(size) ((size==FSIZE_RESERVED_FOR_OPENING) ? 0 : size)
-
 //D.A. #if defined __WIN32 || defined _WIN32
 //B.R. 1.2.20010 #if defined WIN32 || defined WIN64
 //J.O. 16.9.2010: taking from utk_platform_macros.hpp

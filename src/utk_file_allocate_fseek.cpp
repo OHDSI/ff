@@ -42,8 +42,11 @@ namespace utk
 
     // seek to one-byte before end of file
 
-    err = fseeko(f, size-1, SEEK_SET);
-
+    if (size == 0) {
+      err = fseeko(f, size, SEEK_SET);
+    } else {
+      err = fseeko(f, size-1, SEEK_SET);
+    }
     // write last byte
     if (!err)
     {

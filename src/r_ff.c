@@ -1,6 +1,6 @@
 /*
 # R-C layer of ff
-# (c) 2007 Jens Oehlschägel (based on previous work by Daniel Adler)
+# (c) 2007 Jens Oehlsch?gel (based on previous work by Daniel Adler)
 # Licence: GPL2
 # Provided 'as is', use at your own risk
 # Created: 2007-08-24
@@ -398,40 +398,40 @@ SEXP r_ff_new(SEXP name, SEXP ffmode, SEXP initval, SEXP len, SEXP pagesize, SEX
 
   switch (asInteger(ffmode)) { /* for ffmode see vmode.R */
 #if VMODE_COMPILE_BOOLEAN
-  case 1: ff = (void*) ff_boolean_new( CHAR(STRING_ELT(name,0)), asLogical(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 1: ff = (void*) ff_boolean_new( CHAR(STRING_ELT(name,0)), asLogical(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_LOGICAL
-  case 2: ff = (void*) ff_logical_new( CHAR(STRING_ELT(name,0)), asLogical(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 2: ff = (void*) ff_logical_new( CHAR(STRING_ELT(name,0)), asLogical(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_QUAD
-  case 3: ff = (void*) ff_quad_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 3: ff = (void*) ff_quad_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_NIBBLE
-  case 4: ff = (void*) ff_nibble_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 4: ff = (void*) ff_nibble_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_BYTE
-  case 5: ff = (void*) ff_byte_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 5: ff = (void*) ff_byte_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_UBYTE
-  case 6: ff = (void*) ff_ubyte_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 6: ff = (void*) ff_ubyte_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_SHORT
-  case 7: ff = (void*) ff_short_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 7: ff = (void*) ff_short_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_USHORT
-  case 8: ff = (void*) ff_ushort_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 8: ff = (void*) ff_ushort_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_INTEGER
-  case 9: ff = (void*) ff_integer_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 9: ff = (void*) ff_integer_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_SINGLE
-  case 10: ff = (void*) ff_single_new( CHAR(STRING_ELT(name,0)), asReal(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 10: ff = (void*) ff_single_new( CHAR(STRING_ELT(name,0)), asReal(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_DOUBLE
-  case 11: ff = (void*) ff_double_new( CHAR(STRING_ELT(name,0)), asReal(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 11: ff = (void*) ff_double_new( CHAR(STRING_ELT(name,0)), asReal(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
 #if VMODE_COMPILE_RAW
-  case 13: ff = (void*) ff_raw_new( CHAR(STRING_ELT(name,0)), asRaw(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush) ); break;
+  case 13: ff = (void*) ff_raw_new( CHAR(STRING_ELT(name,0)), asRaw(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
 #endif
   default: error("unknown ffmode");
   }
@@ -477,120 +477,132 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   case 1: ff = (void*) ff_boolean_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+  , 1
   ); break;
 #endif
 #if VMODE_COMPILE_LOGICAL
   case 2: ff = (void*) ff_logical_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
 #if VMODE_COMPILE_QUAD
   case 3: ff = (void*) ff_quad_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
 #if VMODE_COMPILE_NIBBLE
   case 4: ff = (void*) ff_nibble_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
 #if VMODE_COMPILE_BYTE
   case 5: ff = (void*) ff_byte_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
 #if VMODE_COMPILE_UBYTE
   case 6: ff = (void*) ff_ubyte_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
 #if VMODE_COMPILE_SHORT
   case 7: ff = (void*) ff_short_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
 #if VMODE_COMPILE_USHORT
   case 8: ff = (void*) ff_ushort_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
 #if VMODE_COMPILE_INTEGER
   case 9: ff = (void*) ff_integer_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
 #if VMODE_COMPILE_SINGLE
   case 10: ff = (void*) ff_single_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
 #if VMODE_COMPILE_DOUBLE
   case 11: ff = (void*) ff_double_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
 #if VMODE_COMPILE_RAW
   case 13: ff = (void*) ff_raw_new( /* for ffmode see vmode.R */
     CHAR(asChar(getAttrib(ff_, install("filename"))))
   , 0 /* to be ignored in this call */
-  , FSIZE_RESERVED_FOR_OPENING /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
+  , 0 /* the revised interface of ff_new wants -1 to distinguish re-opening from creating new */
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
+    , 1
   ); break;
 #endif
   default: error("unknown ffmode");

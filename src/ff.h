@@ -54,7 +54,7 @@ int    ff_len(FF handle);
 /** --- TYPE-SPECIFIC INTERFACE MACROS ------------------------------------- */
 
 #define FF_DECL_TYPE2(NAME,TYPE,INDEX,SIZE) \
-FF   ff_##NAME##_new(const char* filepath, TYPE initval, SIZE size, SIZE pagesize, int readonly, int autoflush); \
+FF   ff_##NAME##_new(const char* filepath, TYPE initval, SIZE size, SIZE pagesize, int readonly, int autoflush, int createNew); \
 TYPE ff_##NAME##_get(       FF handle, INDEX index); \
 void ff_##NAME##_set(       FF handle, INDEX index, TYPE x); \
 TYPE ff_##NAME##_getset(    FF handle, INDEX index, TYPE x); \

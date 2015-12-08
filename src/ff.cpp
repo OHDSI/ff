@@ -276,14 +276,15 @@ template<> inline int add<IntegerImpl,int>(int a, int b)
 // R-FF C type interface definition macro
 
 #define FF_DEF_TYPE2(NAME,TYPE,IMPL,INDEX,SIZE) \
-FF   ff_##NAME##_new(const char* filepath, TYPE initval, INDEX size, int pagesize, int readonly, int autoflush) \
+FF   ff_##NAME##_new(const char* filepath, TYPE initval, INDEX size, int pagesize, int readonly, int autoflush, int createNew) \
 { IMPL* p = new IMPL(); \
   InitParameters pars; \
   pars.path = filepath; \
   pars.size = static_cast<ff::fsize_t>(size); \
   pars.pagesize = static_cast<ff::msize_t>(pagesize); \
   pars.readonly = (readonly == 0 ) ? false : true; \
-  pars.autoflush = (autoflush == 0) ? false : true; \
+  pars.autoflush = (autoflush == 0) ? false : true; \          
+  pars.createNew = createNew; \
   p->init(pars); \
   return reinterpret_cast<FF>(p); \
 }\

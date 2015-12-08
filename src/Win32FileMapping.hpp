@@ -58,7 +58,7 @@ namespace ff {
   public:
 
     /** constructor, open file mapping on file given by native platform path */
-    Win32FileMapping(const char* path, fsize_t size, bool readonly, bool autoflush);
+    Win32FileMapping(const char* path, fsize_t size, bool readonly, bool autoflush, bool createNew);
 
     /** destructor */
     ~Win32FileMapping();
