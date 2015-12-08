@@ -1,5 +1,5 @@
 # Batch utilities for operations on ff objects
-# (c) 2007 Jens Oehlschägel
+# (c) 2007 Jens Oehlsch?gel
 # Licence: GPL2
 # Provided 'as is', use at your own risk
 # Created: 2007-09-03
@@ -106,7 +106,7 @@
 #! \value{
 #!   see details
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \note{ xx The complete generation of the return value is preliminary and the arguments related to defining the return value might still change, especially ffapply is work in progress }
 #! \seealso{ \code{\link{apply}}, \code{\link{expression}}, \code{\link[bit]{bbatch}}, \code{\link[bit]{repfromto}}, \code{\link{ffsuitable}} }
 #! \examples{
@@ -176,20 +176,20 @@
 
 ffvecapply <- function(
   EXPR
-, X           = NULL
-, N           = NULL
-, VMODE       = NULL
-, VBYTES      = NULL
-, RETURN      = FALSE
-, CFUN        = NULL
-, USE.NAMES   = TRUE
-, FF_RETURN   = TRUE
-, BREAK       = '.break'
-, FROM        = 'i1'
-, TO          = 'i2'
-, BATCHSIZE   = .Machine$integer.max
-, BATCHBYTES  = getOption("ffbatchbytes")
-, VERBOSE     = FALSE
+  , X           = NULL
+  , N           = NULL
+  , VMODE       = NULL
+  , VBYTES      = NULL
+  , RETURN      = FALSE
+  , CFUN        = NULL
+  , USE.NAMES   = TRUE
+  , FF_RETURN   = TRUE
+  , BREAK       = '.break'
+  , FROM        = 'i1'
+  , TO          = 'i2'
+  , BATCHSIZE   = .Machine$integer.max
+  , BATCHBYTES  = getOption("ffbatchbytes")
+  , VERBOSE     = FALSE
 )
 {
   if (VERBOSE)
@@ -211,101 +211,113 @@ ffvecapply <- function(
     if (is.null(VBYTES))
       VBYTES <- .rambytes[VMODE]
   }
-  B <- as.integer( min(N, BATCHSIZE, BATCHBYTES %/% VBYTES) )
-  bb <- bbatch(N,B)
-  if (RETURN){
-    nbr <- bb$n + (bb$rb>0)
-    i1 <- cumsum(c(1L, rep(bb$b, length.out=nbr-1L)))
-    i2 <- cumsum(rep(bb$b, length.out=nbr))
-    if (bb$rb) i2[nbr] <- N
-    if (is.null(CFUN)){
-      if (is.null(VMODE))
-        stop("need VMODE (or X) when RETURNing")
-      FF_ATTR <- list(vmode = VMODE, length=N, initdata=NULL)
-      FF_RET <- ffreturn(FF_RETURN=FF_RETURN, FF_PROTO=X, FF_ATTR=FF_ATTR)
+  if (N == 0) {
+    if (VERBOSE){
+      cat("TOTAL TIME\n")
+      print(proc.time() - start.time)
+    }
+    if (RETURN){
+      return(list()) 
+    } else {
+      invisible()
+    }
+  } else {
+    B <- as.integer( min(N, BATCHSIZE, BATCHBYTES %/% VBYTES) )
+    bb <- bbatch(N,B)
+    if (RETURN){
+      nbr <- bb$n + (bb$rb>0)
+      i1 <- cumsum(c(1L, rep(bb$b, length.out=nbr-1L)))
+      i2 <- cumsum(rep(bb$b, length.out=nbr))
+      if (bb$rb) i2[nbr] <- N
+      if (is.null(CFUN)){
+        if (is.null(VMODE))
+          stop("need VMODE (or X) when RETURNing")
+        FF_ATTR <- list(vmode = VMODE, length=N, initdata=NULL)
+        FF_RET <- ffreturn(FF_RETURN=FF_RETURN, FF_PROTO=X, FF_ATTR=FF_ATTR)
+      }else{
+        FF_RET <- vector("list", nbr)
+        if (USE.NAMES) names(FF_RET) <- paste(i1,i2,sep=":")
+      }
+    }
+    p <- parent.frame()
+    assign(FROM, 1L, p)
+    assign(TO, bb$b, p)
+    e1 <- substitute(i1 <- i2 + 1L, list(i1=as.name(FROM), i2=as.name(TO)))
+    e2 <- substitute(i2 <- i2 + b, list(i2=as.name(TO), b=bb$b))
+    #slower: two in one, why?? e12 <- substitute({i1 <- i2 + 1L; i2 <- i2 + b}, list(i1=as.name(FROM), i2=as.name(TO), b=b))
+    e <- substitute(EXPR)
+    for (ib in 1:bb$nb){
+      if (VERBOSE){
+        cat("ffvecapply", paste(get(FROM,p),":",get(TO,p),"{", N, "}", sep="", collapse=", "), "..")
+        temp.time <- proc.time()[3]
+      }
+      temp <- eval(e, p)
+      if (RETURN){
+        if (is.null(CFUN))
+          FF_RET[i1[ib]:i2[ib]] <- temp
+        else
+          FF_RET[[ib]] <- temp
+      }
+      if (VERBOSE){
+        cat(".. in", proc.time()[3]-temp.time, "seconds\n")
+      }
+      if (exists(BREAK, p, mode="logical", inherits=FALSE))
+        break
+      eval(e1, p)
+      eval(e2, p)
+    }
+    if (bb$rb && !exists(BREAK, p, mode="logical", inherits=FALSE)){
+      assign(FROM, N-bb$rb+1L, p)
+      assign(TO, N, p)
+      if (VERBOSE){
+        cat("ffvecapply", paste(get(FROM,p),":",get(TO,p),"{", N, "}", sep="", collapse=", "), "..")
+        temp.time <- proc.time()[3]
+      }
+      temp <- eval(e, p)
+      if (RETURN){
+        if (is.null(CFUN))
+          FF_RET[i1[nbr]:i2[nbr]] <- temp
+        else
+          FF_RET[[nbr]] <- temp
+      }
+      if (VERBOSE){
+        cat(".. in", proc.time()[3]-temp.time, "seconds\n")
+      }
+    }
+    rm(list=c(FROM,TO), envir=p)
+    if (VERBOSE){
+      cat("TOTAL TIME\n")
+      print(proc.time() - start.time)
+    }
+    if (RETURN){
+      if (is.null(CFUN) || CFUN=="list")
+        FF_RET
+      else
+        do.call(CFUN, FF_RET)
     }else{
-      FF_RET <- vector("list", nbr)
-      if (USE.NAMES) names(FF_RET) <- paste(i1,i2,sep=":")
+      invisible()
     }
-  }
-  p <- parent.frame()
-  assign(FROM, 1L, p)
-  assign(TO, bb$b, p)
-  e1 <- substitute(i1 <- i2 + 1L, list(i1=as.name(FROM), i2=as.name(TO)))
-  e2 <- substitute(i2 <- i2 + b, list(i2=as.name(TO), b=bb$b))
-  #slower: two in one, why?? e12 <- substitute({i1 <- i2 + 1L; i2 <- i2 + b}, list(i1=as.name(FROM), i2=as.name(TO), b=b))
-  e <- substitute(EXPR)
-  for (ib in 1:bb$nb){
-    if (VERBOSE){
-      cat("ffvecapply", paste(get(FROM,p),":",get(TO,p),"{", N, "}", sep="", collapse=", "), "..")
-      temp.time <- proc.time()[3]
-    }
-    temp <- eval(e, p)
-    if (RETURN){
-      if (is.null(CFUN))
-        FF_RET[i1[ib]:i2[ib]] <- temp
-      else
-        FF_RET[[ib]] <- temp
-    }
-    if (VERBOSE){
-      cat(".. in", proc.time()[3]-temp.time, "seconds\n")
-    }
-    if (exists(BREAK, p, mode="logical", inherits=FALSE))
-      break
-    eval(e1, p)
-    eval(e2, p)
-  }
-  if (bb$rb && !exists(BREAK, p, mode="logical", inherits=FALSE)){
-    assign(FROM, N-bb$rb+1L, p)
-    assign(TO, N, p)
-    if (VERBOSE){
-      cat("ffvecapply", paste(get(FROM,p),":",get(TO,p),"{", N, "}", sep="", collapse=", "), "..")
-      temp.time <- proc.time()[3]
-    }
-    temp <- eval(e, p)
-    if (RETURN){
-      if (is.null(CFUN))
-        FF_RET[i1[nbr]:i2[nbr]] <- temp
-      else
-        FF_RET[[nbr]] <- temp
-    }
-    if (VERBOSE){
-      cat(".. in", proc.time()[3]-temp.time, "seconds\n")
-    }
-  }
-  rm(list=c(FROM,TO), envir=p)
-  if (VERBOSE){
-    cat("TOTAL TIME\n")
-    print(proc.time() - start.time)
-  }
-  if (RETURN){
-    if (is.null(CFUN) || CFUN=="list")
-      FF_RET
-    else
-      do.call(CFUN, FF_RET)
-  }else{
-    invisible()
   }
 }
 
 
 ffrowapply <- function(
   EXPR
-, X           = NULL
-, N           = NULL
-, NCOL        = NULL
-, VMODE       = NULL
-, VBYTES      = NULL
-, RETURN      = FALSE
-, RETCOL      = NCOL
-, CFUN        = NULL
-, USE.NAMES   = TRUE
-, FF_RETURN   = TRUE
-, FROM        = 'i1'
-, TO          = 'i2'
-, BATCHSIZE   = .Machine$integer.max
-, BATCHBYTES  = getOption("ffbatchbytes")
-, VERBOSE     = FALSE
+  , X           = NULL
+  , N           = NULL
+  , NCOL        = NULL
+  , VMODE       = NULL
+  , VBYTES      = NULL
+  , RETURN      = FALSE
+  , RETCOL      = NCOL
+  , CFUN        = NULL
+  , USE.NAMES   = TRUE
+  , FF_RETURN   = TRUE
+  , FROM        = 'i1'
+  , TO          = 'i2'
+  , BATCHSIZE   = .Machine$integer.max
+  , BATCHBYTES  = getOption("ffbatchbytes")
+  , VERBOSE     = FALSE
 )
 {
   if (VERBOSE)
@@ -444,21 +456,21 @@ ffrowapply <- function(
 
 ffcolapply <- function(
   EXPR
-, X           = NULL
-, N           = NULL
-, NROW        = NULL
-, VMODE       = NULL
-, VBYTES      = NULL
-, RETURN      = FALSE
-, RETROW      = NROW
-, CFUN        = NULL
-, USE.NAMES   = TRUE
-, FF_RETURN   = TRUE
-, FROM        = 'i1'
-, TO          = 'i2'
-, BATCHSIZE   = .Machine$integer.max
-, BATCHBYTES  = getOption("ffbatchbytes")
-, VERBOSE     = FALSE
+  , X           = NULL
+  , N           = NULL
+  , NROW        = NULL
+  , VMODE       = NULL
+  , VBYTES      = NULL
+  , RETURN      = FALSE
+  , RETROW      = NROW
+  , CFUN        = NULL
+  , USE.NAMES   = TRUE
+  , FF_RETURN   = TRUE
+  , FROM        = 'i1'
+  , TO          = 'i2'
+  , BATCHSIZE   = .Machine$integer.max
+  , BATCHBYTES  = getOption("ffbatchbytes")
+  , VERBOSE     = FALSE
 ){
   if (VERBOSE)
     start.time <- proc.time()
@@ -596,24 +608,24 @@ ffcolapply <- function(
 
 ffapply <- function(
   EXPR        = NULL
-, AFUN        = NULL
-, MARGIN      = NULL
-, X           = NULL
-, N           = NULL
-, DIM         = NULL
-, VMODE       = NULL
-, VBYTES      = NULL
-, RETURN      = FALSE
-, CFUN        = NULL
-, USE.NAMES   = TRUE
-, FF_RETURN   = TRUE
-, IDIM        = 'idim'    # dimension index
-, FROM        = 'i1'
-, TO          = 'i2'
-, BREAK       = '.break'
-, BATCHSIZE   = .Machine$integer.max
-, BATCHBYTES  = getOption("ffbatchbytes")
-, VERBOSE     = FALSE
+  , AFUN        = NULL
+  , MARGIN      = NULL
+  , X           = NULL
+  , N           = NULL
+  , DIM         = NULL
+  , VMODE       = NULL
+  , VBYTES      = NULL
+  , RETURN      = FALSE
+  , CFUN        = NULL
+  , USE.NAMES   = TRUE
+  , FF_RETURN   = TRUE
+  , IDIM        = 'idim'    # dimension index
+  , FROM        = 'i1'
+  , TO          = 'i2'
+  , BREAK       = '.break'
+  , BATCHSIZE   = .Machine$integer.max
+  , BATCHBYTES  = getOption("ffbatchbytes")
+  , VERBOSE     = FALSE
 )
 {
   if (VERBOSE)
@@ -641,12 +653,12 @@ ffapply <- function(
     if (is.null(VBYTES))
       VBYTES <- .rambytes[VMODE]
   }
-
-
+  
+  
   if (is.null(MARGIN)){
     B <- as.integer( min(N, BATCHSIZE, BATCHBYTES %/% VBYTES) )
     bb <- bbatch(N,B)
-
+    
     if (RETURN){
       nbr <- bb$nb + (bb$rb>0)
       i1 <- cumsum(c(1L, rep(bb$b, length.out=nbr-1L)))
@@ -667,7 +679,7 @@ ffapply <- function(
     assign(TO, bb$b, p)
     e1 <- substitute(i1 <- i2 + 1L, list(i1=as.name(FROM), i2=as.name(TO)))
     e2 <- substitute(i2 <- i2 + b, list(i2=as.name(TO), b=bb$b))
-   #slower: two in one, why?? e12 <- substitute({i1 <- i2 + 1L; i2 <- i2 + b}, list(i1=as.name(FROM), i2=as.name(TO), b=b))
+    #slower: two in one, why?? e12 <- substitute({i1 <- i2 + 1L; i2 <- i2 + b}, list(i1=as.name(FROM), i2=as.name(TO), b=b))
     if (is.null(AFUN))
       e <- substitute(EXPR)
     else{
@@ -734,7 +746,7 @@ ffapply <- function(
       invisible()
     }
   }else{
-
+    
     if (is.null(DIM))
       stop("specified MARGIN but is.null(DIM)")
     if (length(DIM)<length(MARGIN))
@@ -753,7 +765,7 @@ ffapply <- function(
     if (remsize>BATCHSIZE || (remsize*bytes)>BATCHBYTES)
       warning("ignoring that finest batch size|bytes ", remsize, "|", remsize*bytes, " > BATCHSIZE|BATCHBYTES ", BATCHSIZE, "|", BATCHBYTES)
     margsize <- chunksize[nmarg:1L]
-
+    
     B <- as.integer(pmax(1,pmin(mdim, BATCHSIZE %/% margsize, BATCHBYTES %/% (margsize * bytes)))) # batch sizes per dimenion
     bb <- bbatch(mdim,B)
     b <- bb$b
@@ -770,16 +782,16 @@ ffapply <- function(
         FF_RET <- array(list(), nbr)
         if (USE.NAMES){
           i12 <- lapply(1:nmarg, function(i){
-              i1 <- cumsum(c(1L, rep(b[i], length.out=nbr[i]-1L)))
-              i2 <- cumsum(rep(b[i], length.out=nbr[i]))
-              if (rb[i]) i2[nbr[i]] <- mdim[i]
-              list(i1=i1,i2=i2)
-            })
+            i1 <- cumsum(c(1L, rep(b[i], length.out=nbr[i]-1L)))
+            i2 <- cumsum(rep(b[i], length.out=nbr[i]))
+            if (rb[i]) i2[nbr[i]] <- mdim[i]
+            list(i1=i1,i2=i2)
+          })
           dimnames(FF_RET) <- lapply(i12, function(i)paste(i$i1,i$i2,sep=":"))
         }
       }
     }
-
+    
     if (is.null(AFUN))
       applycall <- substitute(EXPR)
     else{
@@ -888,15 +900,15 @@ ffapply <- function(
     }else{
       invisible()
     }
-
+    
   }
-
+  
 }
 
 
 if (FALSE){
   library(ff)
-
+  
   d <- c(4,4,4,4)
   a <- array(1:(cumprod(d)[length(d)]), d)
   dimnames(a) <- lapply(1:length(dim(a)), function(i)paste(letters[i], 1:(dim(a)[i]), sep=""))
@@ -905,23 +917,23 @@ if (FALSE){
   ffapply(a, apply(a[i1[1]:i2[1],i1[2]:i2[2],,,drop=FALSE], 3:4, sum), 1:2, BATCHSIZE=16, VERBOSE=T, RETURN="list")
   ffapply(a, apply(a[i1[1]:i2[1],i1[2]:i2[2],,,drop=FALSE], 3:4, sum), 1:2, BATCHSIZE=16, VERBOSE=T, RETURN=csum)
   ffapply(a, apply(a[i1[1]:i2[1],i1[2]:i2[2],,,drop=FALSE], 3:4, sum), 1:2, BATCHSIZE=16, VERBOSE=T, RETURN=c)
-
+  
   ffapply(a, apply(a[,,i1[1]:i2[1],i1[2]:i2[2],drop=FALSE], 1:2, sum), 3:4, BATCHSIZE=16, VERBOSE=T, RETURN=csum)
-
+  
   ffapply(a, apply(a[i1[1]:i2[1],i1[2]:i2[2],,,drop=FALSE], 3:4, sum), 1:2, BATCHSIZE=16, VERBOSE=T, RETURN="list")
-
+  
   n <- 1000000
   x <- ff(1, dim=c(n,2))
   y <- ffapply(x, rowSums(x[i1:i2,,drop=FALSE]), MARGIN=1, RETURN="unlist", BATCHSIZE=10000)
   z <- ffrowapply(x, rowSums(x[i1:i2,,drop=FALSE]), RETURN="unlist", BATCHSIZE=10000)
-
+  
   system.time(ffapply(x, i2, MARGIN=1, RETURN="unlist", BATCHSIZE=1000))
   system.time(ffrowapply(x, i2, RETURN="unlist", BATCHSIZE=1000))
-
+  
   n <- 1000000
   x <- ff(0:0, n)
   system.time(ffvecapply(x[i1:i2], x, BATCHSIZE=1000))
-
+  
   x <- 1:100
   print(ffapply(x,{x[i1:i2] <- x[i1:i2] + 1;c(i1,i2)}, BATCHSIZE=10, RETURN=csum))
   x[1:10]

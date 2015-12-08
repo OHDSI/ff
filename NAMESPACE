@@ -1,5 +1,5 @@
 # Namespace for ff (currently exporting (almost) everything in order to facilitate debugging)
-# (c) 2007 Jens Oehlschägel
+# (c) 2007 Jens Oehlsch?gel
 # Licence: GPL2
 # Created: 2007-08-24
 # Last changed: 2007-11-30
@@ -254,6 +254,7 @@ export(
 ,as.hi.ri
 ,as.hi.name
 ,as.hi.call #must not be exported
+,as.hi.default
 ,as.hi.integer
 ,as.hi.which
 ,as.hi.matrix

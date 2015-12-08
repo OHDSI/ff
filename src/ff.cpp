@@ -283,7 +283,7 @@ FF   ff_##NAME##_new(const char* filepath, TYPE initval, INDEX size, int pagesiz
   pars.size = static_cast<ff::fsize_t>(size); \
   pars.pagesize = static_cast<ff::msize_t>(pagesize); \
   pars.readonly = (readonly == 0 ) ? false : true; \
-  pars.autoflush = (autoflush == 0) ? false : true; \          
+  pars.autoflush = (autoflush == 0) ? false : true;            \
   pars.createNew = createNew; \
   p->init(pars); \
   return reinterpret_cast<FF>(p); \
