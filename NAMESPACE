@@ -1,0 +1,791 @@
+# Namespace for ff (currently exporting (almost) everything in order to facilitate debugging)
+# (c) 2007 Jens Oehlschägel
+# Licence: GPL2
+# Created: 2007-08-24
+# Last changed: 2007-11-30
+
+useDynLib(ff)
+
+importFrom(utils, memory.limit, packageDescription, read.fwf, read.table, str, write.table)
+importFrom(stats, median, quantile, runif)
+import(bit)
+
+export(
+
+# == this is a complete list of R functions and metadata of this package sorted by filenames, non-exported functions are commented away ==
+
+# wish of CRAN maintainers: export another time here (now maintained and exported in bit)
+  "clone"
+, "clone.default"
+, "clone.list"
+
+# -- generics.R - all new generics --
+, as.hi
+#,physical
+#,"physical<-"
+#,virtual
+#,"virtual<-"
+,maxindex
+,poslength
+,maxlength
+#,maxwidth
+,pattern
+,"pattern<-"
+,filename
+,"filename<-"
+, pagesize
+,is.open
+,is.readonly
+,vmode
+,as.vmode
+,"vmode<-"
+,finalizer
+,"finalizer<-"
+,finalize
+,delete
+,deleteIfOpen
+,as.ff
+,as.ram
+,dimorder
+,"dimorder<-"
+,vw
+,"vw<-"
+,is.factor
+,is.factor.default
+,is.ordered
+,is.ordered.default
+,ramclass
+,ramattribs
+,recodeLevels
+,sortLevels
+,add
+,swap
+,symmetric
+,fixdiag
+,"fixdiag<-"
+,bigsample
+,vt
+,"nrow<-"
+,"ncol<-"
+
+# -- array.R - array related tools --
+,vector2array
+,array2vector
+,arrayIndex2vectorIndex
+,vectorIndex2arrayIndex
+,symmIndex2vectorIndex
+,dummy.dimnames
+,matcomb
+,matprint
+,print.matprint
+,vecprint
+,print.vecprint
+
+# -- as.ff.R - coercion from ram to ff and vice versa (cache-in/cache-out of complete ff objects) --
+,as.ram.default
+,as.ram.ff
+,as.ff.default
+,as.ff.ff
+
+# -- bigsample.R - sampling from big objects --
+,bigsample.default
+,bigsample.ff
+
+
+
+# -- CFUN.R - some collapse functions useful with ffapply and friends - xx TODO yet incomplete --
+,ccbind
+,crbind
+,cfun
+,cmedian
+,csummary
+,cquantile
+,clength
+,csum
+,cmean
+ 
+# -- ff.R - creating and manipulating ff objects: the core of package ff --
+#,ramphysical_includes
+#,ramvirtual_includes
+,ffxtensions
+,ffsymmxtensions
+,geterror.ff
+,geterrstr.ff
+,is.ff
+,vmode.ff
+,as.vmode.ff	# just catch invalid use
+,"vmode<-.ff" 	# just catch invalid use
+,is.open.ff_pointer
+,is.open.ff
+,pagesize.ff
+#,ffdir
+,pattern.ff
+,"pattern<-.ff"
+,"pattern<-.ffdf"
+,filename.ff_pointer
+,filename.ffdf
+,filename.default
+,"filename<-.ff"
+,is.readonly.ff
+,maxlength.ff
+,maxlength.default
+,symmetric.ff
+,symmetric.dist
+,symmetric.default
+,fixdiag.ff
+,fixdiag.dist
+,fixdiag.default
+,is.sorted.default
+,"is.sorted<-.default"
+,na.count.ff
+,"na.count<-.ff"
+,na.count.default
+,"na.count<-.default"
+#,physical.default
+#,"physical<-.default"
+,physical.ff
+,"physical<-.ff"
+#,print.physical
+#,virtual.default
+#,"virtual<-.default"
+,virtual.ff
+,"virtual<-.ff"
+#,print.virtual
+,ramclass.ff
+,ramclass.default
+,ramattribs.ff
+,ramattribs.default
+,length.ff
+,"length<-.ff"
+,levels.ff
+,"levels<-.ff"
+,is.factor.ff
+,is.ordered.ff
+,names.ff
+,"names<-.ff"
+,names.ff_array
+,"names<-.ff_array"
+,dim.ff
+,"dim<-.ff"
+,dimorder.ff_array
+,"dimorder<-.ff_array"
+,dimorder.default
+,vw.ff
+,"vw<-.ff_vector"
+,"vw<-.ff_array"
+,vw.default
+,dimnames.ff_array
+,"dimnames<-.ff_array"
+,print.ff  
+,print.ff_vector
+,print.ff_matrix
+,str.ff  
+# xx todo print.ff_array via arrprint and print.arrprint
+,ff
+,update.ff
+,clone.ff
+,finalizer.ff
+,"finalizer<-.ff"
+,finalize.ff_pointer
+,finalize.ff
+,finalize.ffdf
+,open.ff
+,close.ff_pointer
+,close.ff
+,deleteIfOpen.ff_pointer
+,deleteIfOpen.ff
+#,deleteIfOpen.default
+,delete.ff_pointer
+,delete.ff
+,delete.default
+,getset.ff	# ,add=TRUE
+,get.ff
+,set.ff		# ,add=TRUE
+,"[[.ff"
+,"[[<-.ff"	# ,add=TRUE
+,readwrite.ff	# ,add=TRUE
+,read.ff
+,write.ff	# ,add=TRUE
+,swap.ff	# ,add=TRUE
+,"[.ff"
+,"[<-.ff"	# ,add=TRUE
+,swap.ff_array	# ,add=TRUE
+,"[.ff_array"
+,"[<-.ff_array"	# ,add=TRUE
+,add.ff
+,add.default
+,swap.default
+,chunk.ff_vector
+
+
+# -- ffapply.R - applying expressions (not functions) to large ff (or ram) objects (R.ff foundation) --
+,ffvecapply
+,ffrowapply
+,ffcolapply
+,ffapply
+
+# -- ffreturn.R - basic infrastructure for checking/creating FF_RETURN values (R.ff foundation) --
+,mismatch
+,ymismatch
+#,ffchecknonulldiff # not used
+,dimorderStandard
+,dimorderCompatible
+,vectorStandard
+,vectorCompatible
+,ffconform
+#,ffsuitableattribs
+,ffsuitable
+,ffreturn
+
+# -- getpagesize.R - utility for getting default pagesize --
+,getpagesize
+,getdefaultpagesize
+,getalignedpagesize
+
+# -- regtest.R --  # xx TODO just draft fragments yet
+#,regtest.ff 	   # xx TODO not up to date
+
+# -- hi.R - class for Hybrid Index Preprocessing (HIP) --
+,hi
+,print.hi
+,str.hi
+,hiparse  #must not be exported
+,as.hi.hi
+,as.hi.ri
+,as.hi.name
+,as.hi.call #must not be exported
+,as.hi.integer
+,as.hi.which
+,as.hi.matrix
+,as.hi.logical
+,as.hi.character
+,as.hi.double
+,subscript2integer
+,as.which.hi
+,as.integer.hi
+,as.matrix.hi
+,as.logical.hi
+,as.character.hi
+,maxindex.hi
+,maxindex.default
+,poslength.hi
+,poslength.default
+,unsort
+,unsort.hi
+,unsort.ahi
+
+
+# -- ffbit.R - functions related to package bit --
+,maxindex.bitwhich
+,maxindex.bit
+,poslength.bitwhich
+,poslength.bit
+,as.hi.ri
+,as.hi.bit
+,as.bit.hi
+,as.bitwhich.hi
+,as.hi.bitwhich
+,as.ff.bit
+,as.bit.ff
+,chunk.bit
+
+# -- fileutil.R - filename utitlities --
+,standardPathFile
+,splitPathFile
+,unsplitPathFile
+,tempPathFile
+,fftempfile
+
+
+# -- util.R - some utitlities --
+,"unclass<-"
+,undim
+#,asCharNA
+,repnam
+
+# -- vmode.R - metadata and functions for virtual storage modes --
+,".vimplemented"
+,".vmode"
+,".vunsigned"
+,".vvalues"
+,".rammode"
+,".ffmode"
+,".vmin"
+,".vmax"
+,".vNA"
+,".rambytes"
+,".ffbytes"
+,".vcoerceable"
+,boolean
+,as.boolean
+,as.boolean.default
+,quad
+,as.quad
+,as.quad.default
+,nibble
+,as.nibble
+,as.nibble.default
+,byte
+,as.byte
+,as.byte.default
+,ubyte
+,as.ubyte
+,as.ubyte.default
+,short
+,as.short
+,as.short.default
+,ushort
+,as.ushort
+,as.ushort.default
+,vector.vmode
+,vmode.default
+,"vmode<-.default"
+,as.vmode.default
+,ram2ramcode
+,ram2ffcode
+,maxffmode
+#,charmode   # experimental, not used
+,regtest.vmode
+
+# -- vt.R - virtual and cloned matrix transpose --
+,vt.default
+,vt.ff
+,t.ff
+
+
+# --- fffactor.R - utilities for factors ---
+,appendLevels
+,recodeLevels.factor
+,recodeLevels.ff
+,sortLevels.factor
+,sortLevels.ff
+,sortLevels.ffdf
+
+
+# -- ffdf.R - dataframe class on top of ff --
+,ffdf
+,chunk.ffdf
+,clone.ffdf
+,update.ffdf
+,"$.ffdf"
+,"$<-.ffdf"
+,"[[.ffdf"
+,"[[<-.ffdf"
+,"[.ffdf"
+,"[<-.ffdf"
+,is.ffdf
+,as.ffdf
+,as.ffdf.ff_matrix
+,as.ffdf.ff_vector
+,as.ffdf.data.frame
+,as.data.frame.ffdf
+,length.ffdf
+,"length<-.ffdf"
+,vmode.ffdf
+,"vmode<-.ffdf"
+,vw.ffdf
+,"vw<-.ffdf"
+,dim.ffdf
+,"dim<-.ffdf"
+,dimorder.ffdf
+,"dimorder<-.ffdf"
+,names.ffdf
+,"names<-.ffdf"
+,row.names.ffdf
+,"row.names<-.ffdf"
+,dimnames.ffdf
+,"dimnames<-.ffdf"
+,physical.ffdf
+,"physical<-.ffdf"
+,virtual.ffdf
+,"virtual<-.ffdf"
+,is.open.ffdf
+,open.ffdf
+,close.ffdf
+,delete.ffdf	
+,print.ffdf
+,str.ffdf
+
+
+# -- ffcsv.R - reading/writing csv into/from ff --
+,read.table.ffdf
+,write.table.ffdf
+,read.csv.ffdf
+,read.csv2.ffdf
+,read.delim.ffdf
+,read.delim2.ffdf
+,write.csv
+,write.csv2
+,write.csv.ffdf
+,write.csv2.ffdf
+
+
+# -- ffsave.R - saving / loading many ff objects WITH ff files --
+,ffsave
+,ffsave.image
+,ffinfo
+,ffload
+,ffdrop
+
+
+# -- x_ff_symm.R - ff extension (dual licensing, no GPL): symmetric  ff matrices with free and fixed diagonal --
+
+#,swapdiag
+#,diag
+#,"diag<-"
+#,diag.default   # turned R function to default method
+#,"diag<-.default" # turned R function to default method
+#,swapset
+#,"subset<-"
+#,"fixdiag<-.ff_symm"
+#,"dim<-.ff_symm"
+#,dimnames.ff_symm
+#,"dimnames<-.ff_symm"
+#,"na.count<-.ff_symm"
+#,print.ff_symm
+#,swap.ff_symm
+#,"[.ff_symm"
+#,"[<-.ff_symm"
+#,swapset.ff_symm
+#,subset.ff_symm
+#,"subset<-.ff_symm"
+#,swapdiag.ff_symm
+#,diag.ff_symm
+#,"diag<-.ff_symm"
+
+# -- x_symm.R    - ff extension (dual licensing, no GPL): symmetric ram matrices with free and fixed diagonal --
+
+#,symm
+#,as.symm
+#,as.symm.dist
+#,as.symm.matrix
+#,as.matrix.symm
+#,dim.symm
+#,"dim<-.symm"
+#,dimnames.symm
+#,"dimnames<-.symm"
+#,symmetric.symm
+#,fixdiag.symm
+#,"fixdiag<-.symm"
+#,diag.symm
+#,"diag<-.symm"
+#,"na.count<-.symm"
+#,print.symm
+#,"[.symm"
+#,"[<-.symm"
+#,subset.symm
+#,"subset<-.symm"
+
+# -- fileresize.R (by Daniel Adler, ISC license) --
+,file.resize
+,file.move
+
+
+# -- ordermerge.R  --
+, mergeorder.default
+, mergesort.default
+, shellorder.default
+, shellsort.default
+, keyorder.default
+, keysort.default
+, radixorder.default
+, radixsort.default
+, ramorder.default
+, ramsort.default
+, regtest.fforder
+, ffsort
+, fforder
+, ffindexordersize
+, ffindexorder
+, ffindexget
+, ffindexset
+, ffdfindexget
+, ffdfindexset
+, dfsort
+, dforder
+, ramdfsort
+, ramdforder
+, ffdfsort
+, ffdforder
+
+,.Last.lib
+
+)
+
+# -- generics.R - all new generics --
+S3method(is.factor, default)
+S3method(is.ordered, default)
+# -- array.R - array related tools --
+S3method(print,matprint)
+S3method(print,vecprint)
+# -- as.ff.R - coercion from ram to ff and vice versa (cache-in/cache-out of complete ff objects) --
+S3method("as.ff",default)
+S3method("as.ff",ff)
+S3method("as.ram",default)
+S3method("as.ram",ff)
+# -- bigsample.R - sampling from big objects --
+S3method(bigsample, default)
+S3method(bigsample, ff)
+# -- CFUN.R - some collapse functions useful with ffapply and friends - xx TODO yet incomplete --
+# -- compatibility.R - methods that help to write similar code for ram and ff objects --
+# -- ff.R - creating and manipulating ff objects: the core of package ff --
+S3method("pattern",ff)
+S3method("pattern<-",ff)
+S3method("pattern<-",ffdf)
+S3method("filename",ffdf)
+S3method("filename",ff_pointer)
+S3method("filename",default)
+S3method("filename<-",ff)
+S3method(is.readonly, ff)
+S3method(is.open, ff_pointer)
+S3method(is.open, ff)
+S3method(pagesize, ff)
+S3method(maxlength, ff)
+S3method(maxlength, default)
+S3method(symmetric,ff)
+S3method(symmetric,default)
+S3method(symmetric,dist)
+S3method(fixdiag,ff)
+S3method(fixdiag,dist)
+S3method(fixdiag,default)
+S3method(is.sorted, default)
+S3method("is.sorted<-", default)
+S3method(na.count, ff)
+S3method("na.count<-", ff)
+S3method(na.count, default)
+S3method("na.count<-", default)
+S3method(length, ff)
+S3method("length<-", ff)
+S3method(levels, ff)
+S3method("levels<-", ff)
+S3method(is.factor, ff)
+S3method(is.ordered, ff)
+S3method("ramclass",ff)
+S3method("ramclass",default)
+S3method("ramattribs",ff)
+S3method("ramattribs",default)
+S3method(names,ff)
+S3method("names<-",ff)
+S3method(names,ff_array)
+S3method("names<-",ff_array)
+S3method(dim,ff)
+S3method("dim<-",ff)
+S3method(dimnames,ff_array)
+S3method("dimnames<-",ff_array)
+S3method(dimorder,ff_array)
+S3method(dimorder,default)
+S3method("dimorder<-",ff_array)
+S3method(vw,ff)
+S3method("vw<-",ff_vector)
+S3method("vw<-",ff_array)
+S3method(vw,default)
+#S3method(virtual,default)
+S3method(virtual,ff)
+S3method("virtual<-",ff)
+#S3method(print,virtual)
+#S3method(physical,default)
+S3method(physical,ff)
+S3method("physical<-",ff)
+#S3method(print,physical)
+S3method(print,ff)
+S3method(print,ff_vector)
+S3method(print,ff_matrix)
+S3method(str,ff)
+S3method(update,ff)
+S3method(clone,ff)
+S3method(finalizer, ff)
+S3method("finalizer<-", ff)
+S3method(finalize, ff_pointer)
+S3method(finalize, ff)
+S3method(finalize, ffdf)
+S3method(open, ff)
+S3method(close, ff_pointer)
+S3method(close, ff)
+S3method(deleteIfOpen, ff_pointer)
+S3method(deleteIfOpen, ff)
+#S3method(deleteIfOpen, default)
+S3method(delete, ff_pointer)
+S3method(delete, ff)
+S3method(delete,default)
+S3method("[[",ff)
+S3method("[[<-",ff)
+S3method("swap",ff)
+S3method("swap",ff_array)
+S3method("swap",default)
+S3method("[",ff)
+S3method("[",ff_array)
+S3method("[<-",ff)
+S3method("[<-",ff_array)
+S3method("add",ff)
+S3method("add",default)
+S3method(chunk, ff_vector)
+# -- ffapply.R - applying expressions (not functions) to large ff (or ram) objects (R.ff foundation) --
+# -- ffreturn.R - basic infrastructure for checking/creating FF_RETURN values (R.ff foundation) --
+# -- getpagesize.R - utility for getting default pagesize --
+# -- regtest.R --  # xx TODO just draft fragments yet
+
+
+# -- hi.R - class for Hybrid Index Preprocessing (HIP) --
+S3method(print, hi)
+S3method(str, hi)
+S3method(as.hi, hi)
+S3method(as.hi, ri)
+S3method(as.hi, name)
+S3method(as.hi, call)
+S3method(as.hi, matrix)
+S3method(as.hi, integer)
+S3method(as.hi, logical)
+S3method(as.hi, which)
+S3method(as.hi, double)
+S3method(as.hi, character)
+S3method(as.matrix, hi)
+S3method(as.which, hi)
+S3method(as.integer, hi)
+S3method(as.logical, hi)
+S3method(as.character, hi)
+S3method(length, hi)
+S3method(maxindex, hi)
+S3method(maxindex, default)
+S3method(poslength, hi)
+S3method(poslength, default)
+
+# -- ffbit.R - functions related to package bit --
+S3method(maxindex,bitwhich)
+S3method(maxindex,bit)
+S3method(poslength,bitwhich)
+S3method(poslength,bit)
+S3method(as.hi,ri)
+S3method(as.hi,bit)
+S3method(as.bit,hi)
+S3method(as.bitwhich,hi)
+S3method(as.hi,bitwhich)
+S3method(as.ff,bit)
+S3method(as.bit,ff)
+S3method(chunk, bit)
+
+# -- util.R - some utitlities --
+
+# -- vmode.R - metadata and functions for virtual storage modes --
+S3method(vmode,default)
+S3method(vmode,ff)
+S3method("vmode<-",default)
+S3method("vmode<-",ff)
+S3method(as.vmode,default)
+S3method(as.vmode,ff)
+S3method(as.boolean,default)
+S3method(as.quad,default)
+S3method(as.nibble,default)
+S3method(as.byte,default)
+S3method(as.ubyte,default)
+S3method(as.short,default)
+S3method(as.ushort,default)
+
+# -- vt.R - cloned and virtual matrix transpose --
+S3method(vt, default)
+S3method(vt, ff)
+S3method(t, ff)
+
+
+# -- fffactor.R - utilities for factors ---
+S3method(recodeLevels, factor)
+S3method(recodeLevels, ff)
+S3method(sortLevels, factor)
+S3method(sortLevels, ff)
+S3method(sortLevels, ffdf)
+
+
+# -- ffdf.R - dataframe class on top of ff --
+S3method(chunk, ffdf)
+S3method(clone, ffdf)
+S3method(update, ffdf)
+S3method("$", ffdf)
+S3method("$<-", ffdf)
+S3method("[[", ffdf)
+S3method("[[<-", ffdf)
+S3method("[", ffdf)
+S3method("[<-", ffdf)
+S3method(as.ffdf, ff_matrix)
+S3method(as.ffdf, ff_vector)
+S3method(as.ffdf, data.frame)
+S3method(as.data.frame, ffdf)
+S3method(length, ffdf)
+S3method("length<-", ffdf)
+S3method(vmode, ffdf)
+S3method("vmode<-", ffdf)
+S3method(vw, ffdf)
+S3method("vw<-", ffdf)
+S3method(dim, ffdf)
+S3method("dim<-", ffdf)
+S3method(dimorder, ffdf)
+S3method("dimorder<-", ffdf)
+S3method(names, ffdf)
+S3method("names<-", ffdf)
+S3method(row.names, ffdf)
+S3method("row.names<-", ffdf)
+S3method(dimnames, ffdf)
+S3method("dimnames<-", ffdf)
+S3method(physical, ffdf)
+S3method("physical<-", ffdf)
+S3method(virtual, ffdf)
+S3method("virtual<-", ffdf)
+S3method(is.open, ffdf)
+S3method(open, ffdf)
+S3method(close, ffdf)
+S3method(delete, ffdf)
+S3method(print, ffdf)
+S3method(str, ffdf)
+
+
+# -- x_ff_symm.R - ff extension (dual licensing, no GPL): symmetric  ff matrices with free and fixed diagonal --
+#S3method(diag, default)
+#S3method("diag<-", default)
+#S3method("fixdiag<-",ff_symm)
+#S3method("dim<-",ff_symm)
+#S3method(dimnames,ff_symm)
+#S3method("dimnames<-",ff_symm)
+#S3method("na.count<-", ff_symm)
+#S3method(print,ff_symm)
+#S3method(swap,ff_symm)
+#S3method("[",ff_symm)
+#S3method("[<-",ff_symm)
+#S3method(swapdiag,ff_symm)
+#S3method(diag,ff_symm)
+#S3method("diag<-",ff_symm)
+#S3method(swapset,ff_symm)
+#S3method(subset,ff_symm)
+#S3method("subset<-",ff_symm)
+
+# -- x_symm.R    - ff extension (dual licensing, no GPL): symmetric ram matrices with free and fixed diagonal --
+#S3method(dim,symm)
+#S3method("dim<-",symm)
+#S3method(dimnames,symm)
+#S3method("dimnames<-",symm)
+#S3method(symmetric,symm)
+#S3method(fixdiag,symm)
+#S3method("fixdiag<-",symm)
+#S3method(diag,symm)
+#S3method("diag<-",symm)
+#S3method(as.matrix,symm)
+#S3method(as.symm,matrix)
+#S3method("na.count<-", symm)
+#S3method(print,symm)
+#S3method("[",symm)
+#S3method("[<-",symm)
+#S3method(subset,symm)
+#S3method("subset<-",symm)
+
+# -- ordermerge.R  --
+S3method("mergeorder", default)
+S3method("mergesort", default)
+S3method("shellorder", default)
+S3method("shellsort", default)
+S3method("keyorder", default)
+S3method("keysort", default)
+S3method("radixorder", default)
+S3method("radixsort", default)
+S3method("ramorder", default)
+S3method("ramsort", default)
+
+# wish of CRAN maintainers: export another time here (now maintained and exported in bit)
+S3method(clone, default)
+S3method(clone, list)
