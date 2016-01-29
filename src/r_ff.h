@@ -1,6 +1,6 @@
 /*
 # R-C layer of ff
-# (c) 2007 Jens Oehlschägel
+# (c) 2007 Jens Oehlsch?gel
 # Licence: GPL2
 # Provided 'as is', use at your own risk
 # Created: 2007-08-24
@@ -74,7 +74,7 @@ SEXP r_ff_geterrstr(SEXP ff_);
 
 SEXP r_ff_ffmode_implemented(SEXP ffmode);
 
-SEXP r_ff_new(SEXP name, SEXP ffmode, SEXP initval, SEXP len, SEXP pagesize, SEXP ro, SEXP autoflush);
+SEXP r_ff_new(SEXP name, SEXP ffmode, SEXP initval, SEXP len, SEXP pagesize, SEXP ro, SEXP autoflush, SEXP createNew);
 SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush);
 SEXP r_ff_is_open(SEXP ff_);
 SEXP r_ff_close(SEXP ff_);

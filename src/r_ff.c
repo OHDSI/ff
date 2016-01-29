@@ -24,7 +24,7 @@ R_CallMethodDef callMethods[] =
  {"geterror", (DL_FUNC) &r_ff_geterror, 1},
  {"geterrstr", (DL_FUNC) &r_ff_geterrstr, 1},
  {"ffmode_implemented",  (DL_FUNC) &r_ff_ffmode_implemented,   1},
- {"new", (DL_FUNC) &r_ff_new,  7},
+ {"new", (DL_FUNC) &r_ff_new,  8},
  {"is_open", (DL_FUNC) &r_ff_is_open,  1},
  {"open", (DL_FUNC) &r_ff_open,  4},
  {"close",(DL_FUNC) &r_ff_close, 1},
@@ -391,47 +391,47 @@ SEXP r_ff_ffmode_implemented(SEXP ffmode)
 }
 
 
-SEXP r_ff_new(SEXP name, SEXP ffmode, SEXP initval, SEXP len, SEXP pagesize, SEXP ro, SEXP autoflush)
+SEXP r_ff_new(SEXP name, SEXP ffmode, SEXP initval, SEXP len, SEXP pagesize, SEXP ro, SEXP autoflush, SEXP createNew)
 {
   SEXP ff_ = R_NilValue;
   void* ff = (void*) 0; /* assignment keeps the compiler quiet */
 
   switch (asInteger(ffmode)) { /* for ffmode see vmode.R */
 #if VMODE_COMPILE_BOOLEAN
-  case 1: ff = (void*) ff_boolean_new( CHAR(STRING_ELT(name,0)), asLogical(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 1: ff = (void*) ff_boolean_new( CHAR(STRING_ELT(name,0)), asLogical(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_LOGICAL
-  case 2: ff = (void*) ff_logical_new( CHAR(STRING_ELT(name,0)), asLogical(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 2: ff = (void*) ff_logical_new( CHAR(STRING_ELT(name,0)), asLogical(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_QUAD
-  case 3: ff = (void*) ff_quad_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 3: ff = (void*) ff_quad_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_NIBBLE
-  case 4: ff = (void*) ff_nibble_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 4: ff = (void*) ff_nibble_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_BYTE
-  case 5: ff = (void*) ff_byte_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 5: ff = (void*) ff_byte_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_UBYTE
-  case 6: ff = (void*) ff_ubyte_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 6: ff = (void*) ff_ubyte_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_SHORT
-  case 7: ff = (void*) ff_short_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 7: ff = (void*) ff_short_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_USHORT
-  case 8: ff = (void*) ff_ushort_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 8: ff = (void*) ff_ushort_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_INTEGER
-  case 9: ff = (void*) ff_integer_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 9: ff = (void*) ff_integer_new( CHAR(STRING_ELT(name,0)), asInteger(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_SINGLE
-  case 10: ff = (void*) ff_single_new( CHAR(STRING_ELT(name,0)), asReal(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 10: ff = (void*) ff_single_new( CHAR(STRING_ELT(name,0)), asReal(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_DOUBLE
-  case 11: ff = (void*) ff_double_new( CHAR(STRING_ELT(name,0)), asReal(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 11: ff = (void*) ff_double_new( CHAR(STRING_ELT(name,0)), asReal(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
 #if VMODE_COMPILE_RAW
-  case 13: ff = (void*) ff_raw_new( CHAR(STRING_ELT(name,0)), asRaw(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), 0); break;
+  case 13: ff = (void*) ff_raw_new( CHAR(STRING_ELT(name,0)), asRaw(initval), asInteger(len), asInteger(pagesize), asLogical(ro), asLogical(autoflush), asInteger(createNew)); break;
 #endif
   default: error("unknown ffmode");
   }
@@ -481,7 +481,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-  , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_LOGICAL
@@ -492,7 +492,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_QUAD
@@ -503,7 +503,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_NIBBLE
@@ -514,7 +514,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_BYTE
@@ -525,7 +525,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_UBYTE
@@ -536,7 +536,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_SHORT
@@ -547,7 +547,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_USHORT
@@ -558,7 +558,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_INTEGER
@@ -569,7 +569,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_SINGLE
@@ -580,7 +580,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_DOUBLE
@@ -591,7 +591,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
 #if VMODE_COMPILE_RAW
@@ -602,7 +602,7 @@ SEXP r_ff_open(SEXP ff_, SEXP ffmode, SEXP ro, SEXP autoflush)
   , asInteger(getAttrib(ff_, install("pagesize")))
   , asLogical(ro)
   , asLogical(autoflush)
-    , 1
+  , 0
   ); break;
 #endif
   default: error("unknown ffmode");

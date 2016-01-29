@@ -1,5 +1,5 @@
 # sorting module for ff
-# (c) 2010 Jens Oehlschägel
+# (c) 2010 Jens Oehlsch?gel
 # Licence: GPL2
 # Provided 'as is', use at your own risk
 # Created: 2010-01-01
@@ -84,7 +84,7 @@
 #! Robert Sedgewick (1997). Algorithms in C, Third edition. Addison-Wesley.
 #! }
 #! \author{
-#! Jens Oehlschlägel
+#! Jens Oehlschl?gel
 #! }
 #! \note{
 #! This function is called for its side-effects and breaks the functional programming paradigm. Use with care.
@@ -177,7 +177,7 @@
 #!   cat some info about chosen method
 #! }
 #!   \item{stabilize}{
-#!   Set to \code{TRUE} for stabilizíng the result of shellorder (for equal keys the order values will be sorted, this only works if \code{i=1:n})
+#!   Set to \code{TRUE} for stabiliz?ng the result of shellorder (for equal keys the order values will be sorted, this only works if \code{i=1:n})
 #! to minimize RAM requirements and sacrifice speed
 #! }
 #!   \item{\dots}{
@@ -211,7 +211,7 @@
 #! Robert Sedgewick (1997). Algorithms in C, Third edition. Addison-Wesley.
 #! }
 #! \author{
-#! Jens Oehlschlägel
+#! Jens Oehlschl?gel
 #! }
 #! \note{
 #! This function is called for its side-effects and breaks the functional programming paradigm. Use with care.
@@ -634,7 +634,7 @@ ramorder.default <- function(x, i
 #!   An ff vector -- optionally decorated with \code{\link{is.sorted}} and \code{\link{na.count}}, see argument 'decorate'
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #!
 #! \seealso{
@@ -724,6 +724,7 @@ ffsort <- function(
         BATCHSIZE <- ceiling(n / 2 ^ ceiling(max(0, log(n*(recbytes/maxbytes), 2))))
       }
     }
+
     if (BATCHSIZE>=n){
      # tuning: do it in-ram
      y <- read.ff(x, 1L, n)
@@ -868,7 +869,7 @@ ffsort <- function(
 #! -- with an attribute \code{\link{na.count}} with as many values as columns in \dots
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #!
 #! \seealso{
@@ -917,6 +918,9 @@ fforder <- function(
     use.index <- !is.null(index)
 
   l <- list(...)
+  if (length(l[[1]]) == 0) {
+    return(c())
+  }
   nl <- length(l)
   if (is.null(names(l)))
     names(l) <- paste("<", 1:nl, ">", sep="")
@@ -1154,7 +1158,7 @@ fforder <- function(
 #!   Function \code{ffindexordersize} returns a balanced batchsize as returned from \code{\link{bbatch}}.
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #! \seealso{
 #!    \code{\link{ffindexget}},  \code{\link{as.hi}},  \code{\link{bbatch}}
@@ -1285,7 +1289,7 @@ ffindexorder <- function(
 #!   Function \code{ffindexset} returns the ff vector in which we have updated values.
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #! \seealso{
 #!   \code{\link{Extract.ff}}, \code{\link{ffdfindexget}}, \code{\link{ffindexorder}}
@@ -1539,7 +1543,7 @@ ffindexset <- function(
 #!   Function \code{ffdfindexset} returns \code{x} with those rows replaced that had been requested by \code{index} and \code{value}.
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #! \seealso{
 #!   \code{\link{Extract.ff}}, \code{\link{ffindexget}}, \code{\link{ffindexorder}}
@@ -1910,7 +1914,7 @@ ffdfindexset <- function(
 #!  the order functions return an (ff) vector of integer order positions, the sort functions return a sorted clone of the (ffdf) input data.frame
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #!
 #! \seealso{
@@ -1991,6 +1995,9 @@ ramdfsort <- function(
 
 
 ffdforder <- function(x, ...){
+  if (nrow(x) == 0) {
+    return(c())
+  }
   k <- ncol(x)
   l <- vector("list", k)
   for (i in 1:k)
@@ -2048,7 +2055,7 @@ ffdfsort <- function(
 #!  Invisible()
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #! \seealso{
 #!   \code{\link{ramsort}}
@@ -3107,11 +3114,11 @@ if (FALSE){
 				, PACKAGE="ff"
 				)
 
-	# stürzt nicht ab
+	# st?rzt nicht ab
 	x <- ff(sample(as.factor(letters)), length=100000)
 	ffsort(x)
 
-	# stürzt ab
+	# st?rzt ab
 	x <- ff(sample(as.factor(letters)), length=100000, vmode="byte")
 	ffsort(x)
 

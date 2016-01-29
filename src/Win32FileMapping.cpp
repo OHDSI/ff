@@ -79,7 +79,7 @@ Win32FileMapping::Win32FileMapping(const char* path, fsize_t size, bool readonly
   }
  */
 
-  if (!createNew)
+  if (createNew)
   {
     int err = utk::file_allocate_fseek(path, size);
     if (err)
@@ -110,7 +110,7 @@ Win32FileMapping::Win32FileMapping(const char* path, fsize_t size, bool readonly
     _error = E_UNABLE_TO_OPEN;
     return;
   }
-  if (!createNew) {
+  if (createNew) {
     // check free disk space
     FSInfo info;
     getFSInfo(path,info);
@@ -119,7 +119,7 @@ Win32FileMapping::Win32FileMapping(const char* path, fsize_t size, bool readonly
       return;
     }
   }
-  if (!createNew) {
+  if (createNew) {
 
     // allocate file blocks that match array size and zero fill
 /*

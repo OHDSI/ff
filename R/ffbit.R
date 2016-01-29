@@ -1,5 +1,5 @@
 # bit <=> ff interface
-# (c) 2009 Jens Oehlschägel
+# (c) 2009 Jens Oehlsch?gel
 # Licence: GPL2
 # Provided 'as is', use at your own risk
 # Created: 2009-04-05
@@ -213,7 +213,7 @@ regtest.as.hi.bit <- function(){
 #!   A vector of the converted type
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #! \seealso{
 #!   \code{\link[bit]{bit}}, \code{\link{ff}}, \code{\link{as.ff}}, \code{\link{as.hi.bit}}
@@ -262,11 +262,11 @@ as.ff.bit <- function(
   if (length(l))
     pattr[names(l)] <- l
 
-  if (!is.null(filename))
+  if (!is.null(filename)) {
     pattr$filename <- filename
+  }
   pattr$overwrite <- overwrite
   pattr$length <- nb
-
   pattr1 <- pattr
   pattr1$finalizer <- "close"
   pattr1$vmode <- "integer"
@@ -276,6 +276,7 @@ as.ff.bit <- function(
   close(y)
 
   pattr$filename <- filename(y)
+#  pattr$createNew <- FALSE
   do.call("ff", pattr)
 }
 
@@ -287,7 +288,7 @@ as.bit.ff <- function(x, ...){
     iso <- is.open(x)
     if (iso)
       close(x)
-    y <- ff(vmode="integer", filename=filename(x), finalizer="close")
+    y <- ff(vmode="integer", filename=filename(x), finalizer="close", createNew = FALSE)
     b <- integer(length(y))
     i1 <- i2 <- 0L; ffvecapply( b[i1:i2] <- y[i1:i2], X=y )
     close(y)
@@ -329,7 +330,7 @@ as.bit.ff <- function(x, ...){
 #!   A list with \code{\link[bit]{ri}} indexes each representing one chunk
 #! }
 #! \author{
-#!   Jens Oehlschlägel
+#!   Jens Oehlschl?gel
 #! }
 #! \seealso{ \code{\link[bit]{chunk}}, \code{\link{bit}} }
 #! \examples{

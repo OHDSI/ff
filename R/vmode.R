@@ -1,5 +1,5 @@
 # vmode = virtual mode = attribute that both, ff and R RAM objects have
-# (c) 2007 Jens Oehlschägel
+# (c) 2007 Jens Oehlsch?gel
 # Licence: GPL2
 # Provided 'as is', use at your own risk
 # Created: 2007-10-15
@@ -94,7 +94,7 @@
 #! }
 #! \note{ \command{regtest.vmode} checks correctness of some vmode features
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{ff}}, \code{\link{storage.mode}}, \code{\link{mode}} }
 #! \examples{
 #!  data.frame(.vmode=.vmode, .vimplemented=.vimplemented, .rammode=.rammode, .ffmode=.ffmode
@@ -161,7 +161,7 @@
 #! \value{
 #!  a vector of the desired vmode initialized with 0
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{as.vmode}}, \code{\link{vector}} }
 #! \examples{
 #!   vector.vmode("byte",12)
@@ -243,7 +243,7 @@
 #! \value{
 #!   a vector of the desired vmode containing the input data
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{vmode}}, \code{\link{vector.vmode}} }
 #! \examples{
 #!   as.vmode(1:3,"double")
@@ -570,8 +570,9 @@ as.vmode.default <- function(x, vmode
   if (is.null(vmode) || vmode=="NULL")
     stop("you can't create a vector with vmode='NULL'")
   vm <- vmode(x)
-  if (vm=="NULL")
-    stop("you can't coerce NULL to a different vmode")
+  if (vm=="NULL") {
+    vm = vmode
+  }
   if (vm==vmode){
     x
   }else{
@@ -793,7 +794,7 @@ function (x, ...)
 #! \value{
 #!   A vector of integer values representing the correspnding factor levels.
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{ \code{\link[base]{factor}}, \code{\link{levels.ff}}, \code{\link{vmode}} }
 #! \examples{
 #!  ram2ffcode(letters, letters, vmode="byte")
@@ -866,7 +867,7 @@ ram2ramcode <- function(value, levels){
 #! \note{
 #!   The output can be larger than any of the inputs (if the highest input vmode is an integer type without NA and any other input requires NA).
 #! }
-#! \author{ Jens Oehlschlägel }
+#! \author{ Jens Oehlschl?gel }
 #! \seealso{  \code{\link{.vcoerceable}}, \code{\link{.ffmode}}, \code{\link{ffconform}} }
 #! \examples{
 #!    maxffmode(c("quad","logical"), "ushort")

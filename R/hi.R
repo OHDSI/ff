@@ -69,6 +69,9 @@
 
 hi <- function (from, to, by = 1L, maxindex = NA, vw=NULL, pack = TRUE, NAs = NULL)
 {
+    if (to < from) {
+      return(as.hi(c()))
+    }
     minindex <- 1L
     maxindex <- as.integer(maxindex)
     if (is.null(vw)){
