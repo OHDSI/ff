@@ -73,12 +73,13 @@ static void* getZeroPage()
 }
 #endif
 
-MMapFileMapping::MMapFileMapping(const char* path, fsize_t size, bool readonly, bool autoflush)
+MMapFileMapping::MMapFileMapping(const char* path, fsize_t size, bool readonly, bool autoflush, bool createNew)
  : _fd(-1)
  , _size(0)
  , _error(E_NO_ERROR)
  , _readonly(readonly)
  , _autoflush(autoflush)
+ , _createNew(createNew)
 {
   // check path
   struct stat sb;
@@ -96,7 +97,7 @@ MMapFileMapping::MMapFileMapping(const char* path, fsize_t size, bool readonly, 
   flags |= O_CREAT;
   if (size) flags |= O_TRUNC;
  */
-  if (size) {
+  if (createNew) {
     int error = utk::file_allocate_fseek(path,size);
     if (error)
     {
@@ -119,7 +120,7 @@ MMapFileMapping::MMapFileMapping(const char* path, fsize_t size, bool readonly, 
     return;
   }
 */
-  if (size) { // create new file
+  if (_createNew) { // create new file
 #if 0
     // clamp size to page-size
 
@@ -167,7 +168,7 @@ MMapFileMapping::~MMapFileMapping()
 
 MMapFileSection* MMapFileMapping::mapSection(foff_t offset, msize_t size, void* baseaddr)
 {
-  return new MMapFileSection(_fd,offset,size,baseaddr,_readonly,_autoflush);
+  return new MMapFileSection(_fd,offset,size,baseaddr,_readonly,_autoflush,true);
 }
 
 void MMapFileMapping::remapSection(MMapFileSection& section, foff_t offset, msize_t size, void* addr)
@@ -183,10 +184,11 @@ msize_t MMapFileMapping::getPageSize()
   return _pagesize;
 }
 
-MMapFileSection::MMapFileSection(int fd, foff_t offset, msize_t size, void* addr, bool readonly, bool autoflush)
+MMapFileSection::MMapFileSection(int fd, foff_t offset, msize_t size, void* addr, bool readonly, bool autoflush, bool createNew)
  : _fd(fd)
  , _readonly(readonly)
  , _autoflush(autoflush)
+ , _createNew(createNew)
  , _offset(0)
  , _end(0)
  , _size(0)
@@ -216,7 +218,7 @@ void MMapFileSection::reset(foff_t offset, msize_t size, void* addr)
 {
   flush();
 
-  if ( (size) && (_fd != -1) ) {
+  if ( (_createNew) && (_fd != -1) ) {
     int prot = PROT_READ | (( _readonly) ? 0 : PROT_WRITE );
     int flags = MAP_SHARED
 //D.A. #if !defined(__sun__)
