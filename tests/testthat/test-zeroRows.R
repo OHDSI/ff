@@ -1,6 +1,6 @@
 library("testthat")
 library("ff")
-
+# options('fftempdir' = '/var/tmp')
 
 test_that("Can create zero length ff objects", {
   x <- as.ff(c(), vmode = "integer")

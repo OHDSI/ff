@@ -13,6 +13,7 @@
 \alias{as.hi.logical}
 \alias{as.hi.character}
 \alias{as.hi.matrix}
+\alias{as.hi.default}
 \title{ Hybrid Index, coercion to }
 \description{
   The generic \command{as.hi} and its methods are the main (internal) means for preprocessing index information into the hybrid index class \code{\link{hi}}.
@@ -84,7 +85,7 @@ as.hi(x, \dots)
 \value{
   an object of class \code{\link{hi}}
 }
-\author{ Jens Oehlschlägel }
+\author{ Jens Oehlschl?gel }
 \note{ Avoid changing the Hybrid Index representation, this might crash the \code{\link{[.ff}} subscripting. }
 \seealso{ \code{\link{hi}} for the Hybrid Index class, \code{\link{hiparse}} for parsing details, \code{\link{as.integer.hi}} for back-coercion, \code{\link{[.ff}} for ff subscripting }
 \examples{
