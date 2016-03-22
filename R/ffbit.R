@@ -274,8 +274,8 @@ as.ff.bit <- function(
   y <- do.call("ff", pattr1)
   i1 <- i2 <- 0L; ffvecapply( y[i1:i2] <- x[i1:i2], X=y )
   close(y)
-
   pattr$filename <- filename(y)
+  rm(y)
 #  pattr$createNew <- FALSE
   do.call("ff", pattr)
 }
