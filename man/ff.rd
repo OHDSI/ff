@@ -42,7 +42,6 @@ ff( initdata  = NULL
 , filename    = NULL
 , overwrite   = FALSE
 , readonly    = FALSE
-, createNew   = TRUE
 , pagesize    = NULL  # getOption("ffpagesize")
 , caching     = NULL  # getOption("ffcaching")
 , finalizer   = NULL
@@ -74,7 +73,6 @@ ff( initdata  = NULL
   \item{filename}{ ff \code{\link{filename}} with or without path (default tmpfile with 'pattern' prefix); without path the file is created in \code{getOption("fftempdir")}, with path '.' the file is created in \code{\link{getwd}}. Note that files created in \code{getOption("fftempdir")} have default finalizer "delete" while other files have default finalizer "close". See also arguments 'pattern' and 'finalizer' and \code{\link[=physical.ff]{physical}} }
   \item{overwrite}{ set to TRUE to allow overwriting existing files (default FALSE) }
   \item{readonly}{ set to TRUE to forbid writing to existing files }
-  \item{createNew}{ should a new file be created? (otherwise, the ff object attached to an existing file) }
   \item{pagesize}{ pagesize in bytes for the memory mapping (default from \code{getOptions("ffpagesize")} initialized by \code{\link{getdefaultpagesize}}), see also \code{\link[=physical.ff]{physical}} }
   \item{caching}{ caching scheme for the backend, currently 'mmnoflush' or 'mmeachflush' (flush mmpages at each swap, default from \code{getOptions("ffcaching")} initialized with 'mmeachflush'), see also \code{\link[=physical.ff]{physical}} }
   \item{finalizer}{ name of finalizer function called when ff object is \code{\link{remove}d} (default: ff files created in \code{getOptions("fftempdir")} are considered temporary and have default finalizer \code{\link[ff:delete.ff]{delete}}, files created in other locations have default finalizer \code{\link[ff:close.ff]{close}}); available finalizer generics are "close", "delete" and "deleteIfOpen", available methods are \code{\link{close.ff}}, \code{\link{delete.ff}} and \code{\link{deleteIfOpen.ff}}, see also argument 'finonexit' and \code{\link{finalizer}} }

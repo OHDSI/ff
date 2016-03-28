@@ -288,7 +288,7 @@ as.bit.ff <- function(x, ...){
     iso <- is.open(x)
     if (iso)
       close(x)
-    y <- ff(vmode="integer", filename=filename(x), finalizer="close", createNew = FALSE)
+    y <- ff(vmode="integer", filename=filename(x), finalizer="close", overwrite = FALSE)
     b <- integer(length(y))
     i1 <- i2 <- 0L; ffvecapply( b[i1:i2] <- y[i1:i2], X=y )
     close(y)
