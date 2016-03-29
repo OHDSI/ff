@@ -6,7 +6,8 @@ Author: Daniel Adler <dadler@uni-goettingen.de>,
 	Christian Gl?ser <christian_glaeser@gmx.de>,
 	Oleg Nenadic <onenadi@uni-goettingen.de>, 
 	Jens Oehlschl?gel <Jens.Oehlschlaegel@truecluster.com>,
-	Walter Zucchini <wzucchi@uni-goettingen.de>
+	Walter Zucchini <wzucchi@uni-goettingen.de>,
+	Martijn Schuemie <schuemie@ohdsi.org>
 Maintainer: Jens Oehlschl?gel <Jens.Oehlschlaegel@truecluster.com>
 Depends: R (>= 2.10.1), bit (>= 1.1-13), utils
 Suggests: biglm, testthat
