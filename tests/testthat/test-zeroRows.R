@@ -41,9 +41,10 @@ test_that("Can save zero length ff objects", {
   x <- ff(c())
   ffsave(x, file = "ffTest")
   rm(x)
-  ffload("ffTest")
+  ffload("ffTest", overwrite = TRUE)
   expect_equal(length(x), 0)
   expect_equal(vmode(x), "logical")
+  delete(x)
 })
 
 test_that("Can create zero row ffdf objects", {
@@ -70,6 +71,7 @@ test_that("Can clone zero row ffdf objects", {
   expect_equal(nrow(y), 0)
   expect_equal(vmode(y)[[1]], "double")
   expect_equal(vmode(y)[[2]], "double")
+  delete(y)
 })
 
 test_that("Can save zero row ffdf objects", {
