@@ -1063,7 +1063,11 @@ length.ff <- function(x)
         x[hi(oldlen+1L, value)] <- NA
       virtual$Names <- c(virtual$Names, (oldlen+1L):value)
     }else
-      virtual$Names <- virtual$Names[1:value]
+      if (value == 0) {
+        virtual$Names <- c()
+      } else {
+        virtual$Names <- virtual$Names[1:value]
+      }
   }
 
   virtual(x) <- virtual
@@ -4216,6 +4220,10 @@ swap.ff <- function(
       attr(x, "physical") <- .Call("addset_vector", .ffmode[vmode], attr(x, "physical"), index, nreturn, value, PACKAGE="ff")
     else
       attr(x, "physical") <- .Call("set_vector", .ffmode[vmode], attr(x, "physical"), index, nreturn, value, PACKAGE="ff")
+  } else {
+    if (length(value) > 0) {
+      warning("number of elements to replace is not multiple of values for replacement")
+    }
   }
   return(x)
 }

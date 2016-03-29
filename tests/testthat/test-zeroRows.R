@@ -1,6 +1,8 @@
 library("testthat")
 library("ff")
 # options('fftempdir' = '/var/tmp')
+# options('fftempdir' = 's:/fftemp')
+
 
 test_that("Can create zero length ff objects", {
   x <- as.ff(c(), vmode = "integer")
@@ -78,14 +80,14 @@ test_that("Can save zero row ffdf objects", {
   x <- data.frame(a = c(1,2), b = c(2,3))
   x <- x[x$a == 3,]
   x <- as.ffdf(x)
-#   ffbase::save.ffdf(x, dir = "ffdfTest", overwrite = TRUE)
-#   rm(x)
-#   ffbase::load.ffdf(dir = "ffdfTest")
-#   
-#   expect_equal(nrow(x), 0)
-#   expect_equal(vmode(x)[[1]], "double")
-#   expect_equal(vmode(x)[[2]], "double")
-#   
+  #   ffbase::save.ffdf(x, dir = "ffdfTest", overwrite = TRUE)
+  #   rm(x)
+  #   ffbase::load.ffdf(dir = "ffdfTest")
+  #   
+  #   expect_equal(nrow(x), 0)
+  #   expect_equal(vmode(x)[[1]], "double")
+  #   expect_equal(vmode(x)[[2]], "double")
+  #   
   write.csv(x, "test.csv", row.names = FALSE)
   y <- read.csv.ffdf(file = "test.csv")
   file.remove("test.csv")
@@ -195,10 +197,39 @@ test_that("Can convert to bit and back", {
   
   f <- as.ff(b)
   stopifnot(all.equal(l,f[], check.attributes = FALSE))
-
+  
   b2 <- as.bit(f)
   stopifnot(all.equal(b, b2, check.attributes = FALSE))
   f2 <- as.ff(b2)
   stopifnot(all.equal(l, f2[], check.attributes = FALSE))
   stopifnot(identical(filename(f),filename(f2)))
+})
+
+test_that("Jens' bugs", {
+  n <- 0
+  x <- ff(integer(n))
+  # no warning on assignment of wrong length
+  expect_warning(x[] <- 1:26)
+  
+  length(x) <- 1
+  # compare to this one
+  expect_warning(x[] <- 1:26)
+  # number of elements to replace is not multiple of values for replacement
+  
+  length(x) <- 26
+  x[] <- 1:26
+  names(x) <- letters
+  expect_equal(length(x), 26) # ok
+  expect_equal(length(names(x)), 26) # ok
+  
+  length(x) <- 3
+  expect_equal(length(x), 3) # ok
+  expect_equal(length(names(x)), 3) # ok
+  
+  length(x) <- 0
+  expect_equal(length(x), 0) # ok
+  expect_equal(length(names(x)), 0)
+
+  length(x) <- 7
+  expect_equal(length(names(x)), 0)
 })
