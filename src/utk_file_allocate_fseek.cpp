@@ -43,17 +43,19 @@ namespace utk
     // seek to one-byte before end of file
 
     if (size == 0) {
-      err = fseeko(f, size, SEEK_SET);
+      err = fseeko(f, 0, SEEK_SET);
+      // size = 0 so no space to allocate
     } else {
       err = fseeko(f, size-1, SEEK_SET);
+      // write last byte
+      if (!err)
+      {
+        unsigned char value = 0;
+        unsigned int nwritten = fwrite(&value,1,1,f);
+        if (nwritten != 1) err = 1;
+      }
     }
-    // write last byte
-    if (!err)
-    {
-      unsigned char value = 0;
-      unsigned int nwritten = fwrite(&value,1,1,f);
-      if (nwritten != 1) err = 1;
-    }
+    
 
     // close
     fclose(f);

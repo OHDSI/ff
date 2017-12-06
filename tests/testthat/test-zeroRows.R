@@ -233,3 +233,13 @@ test_that("Jens' bugs", {
   length(x) <- 7
   expect_equal(length(names(x)), 0)
 })
+
+test_that("Zero-length objects stay zero-length when reimplemented from file name", {
+  x <- as.ff(c(), vmode = "byte")
+  reimp <- ff(vmode="byte", filename=filename(x))
+  expect_equal(length(x), length(reimp))
+  
+  x2 <- as.ff(c(0), vmode = "byte")
+  reimp2 <- ff(vmode="byte", filename=filename(x2))
+  expect_equal(length(x2), length(reimp2))
+})

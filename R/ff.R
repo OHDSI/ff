@@ -2473,7 +2473,7 @@ ff <- function(
     if (length(initdata))
       as.vmode(initdata[1], vmode)
     else
-      vector.vmode(vmode, 1)
+      vector.vmode(vmode, 0)
   } else {
     if (length(initdata)){
       if (.vunsigned[vmode])
